@@ -68,6 +68,15 @@ npm run dev
 <br>
 
 ## [ROUTES ANALYSIS AND COMPONENTS IN REACT]()
+The ecommerce application has different pages, such as:
+  - Home
+  - My Account
+  - My Order
+  - My Orders
+  - Not Found
+  - Sign In
+
+Each page has its own folder where the index.js and the css code is stored.
 
 <br>
 <br>

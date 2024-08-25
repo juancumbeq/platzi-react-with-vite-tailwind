@@ -28,6 +28,42 @@
 
 ## [REACT INSTALLATION WITH VITE AND TAILWINDCSS]()
 
+The tailwind documentation is key to properly proceed with the installation: [https://tailwindcss.com/docs/guides/vite#react]().
+
+### Vite installation
+
+`npm create vite@latest my-project`
+
+### TailwindCSS installation
+
+`npm install -D tailwindcss postcss autoprefixer`
+
+### TailwindCSS init
+`npx tailwindcss init -p`
+
+### Configure TailwindCSS paths
+
+```javascript
+content: [
+  "./index.html",
+  "./src/**/*.{js,ts,jsx,tsx}",
+],
+```
+
+### TailwindCSS directives
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+### Run local server
+
+```shell
+npm run dev
+```
+
 <br>
 <br>
 
@@ -56,7 +92,7 @@
 <br>
 <br>
 
-## [CONSUMING THE FAKESTORE API TO COLOUR CARDS]()
+## [CONSUMING THE FAKESTORE API TO COLOUR CARDS]()
 
 <br>
 <br>
@@ -190,3 +226,7 @@
 # AUTHOR
 
 This project was developed by _Juan Cumbe_. If you have any questions or suggestions about the project, feel free to contact me via [e-mail](mailto:hello@juancumbe.com) or my [Linkedin](https://www.linkedin.com/in/juancumbeq/) profile.
+
+```
+
+```

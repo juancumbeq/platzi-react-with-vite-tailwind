@@ -67,12 +67,12 @@ npm run dev
 <br>
 <br>
 
-## [ROUTING WITH REACT ROUTER DOM]()
-
-<br>
-<br>
-
 ## [ROUTES ANALYSIS AND COMPONENTS IN REACT]()
+
+<br>
+<br>
+
+## [ROUTING WITH REACT ROUTER DOM]()
 
 <br>
 <br>

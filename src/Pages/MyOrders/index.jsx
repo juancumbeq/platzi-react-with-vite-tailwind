@@ -1,11 +1,9 @@
-import './App.css';
-
-function App() {
+function MyOrders() {
 	return (
 		<div className='text-3xl font-bold underline'>
-			Hello world!
+			MyOrders
 		</div>
 	);
 }
 
-export default App;
+export default MyOrders;

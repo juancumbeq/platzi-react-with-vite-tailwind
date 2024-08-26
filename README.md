@@ -68,13 +68,15 @@ npm run dev
 <br>
 
 ## [ROUTES ANALYSIS AND COMPONENTS IN REACT]()
+
 The ecommerce application has different pages, such as:
-  - Home
-  - My Account
-  - My Order
-  - My Orders
-  - Not Found
-  - Sign In
+
+- Home
+- My Account
+- My Order
+- My Orders
+- Not Found
+- Sign In
 
 Each page has its own folder where the index.js and the css code is stored.
 
@@ -82,6 +84,63 @@ Each page has its own folder where the index.js and the css code is stored.
 <br>
 
 ## [ROUTING WITH REACT ROUTER DOM]()
+
+```javascript
+import {
+	useRoutes,
+	BrowserRouter,
+} from 'react-router-dom';
+
+// APPLICATION PAGES
+import Home from '../Home';
+import MyAccount from '../MyAccount';
+import MyOrder from '../MyOrder';
+import MyOrders from '../MyOrders';
+import NotFound from '../NotFound';
+import SignIn from '../SignIn';
+
+import './App.css';
+
+// ROUTES COMPONENT
+const AppRoutes = () => {
+	let routes = useRoutes([
+		{ path: '/', element: <Home /> },
+		{
+			path: '/my-account',
+			element: <MyAccount />,
+		},
+		{ path: '/my-order', element: <MyOrder /> },
+		{ path: '/my-orders', element: <MyOrders /> },
+		{ path: '/*', element: <NotFound /> },
+		{ path: '/signin', element: <SignIn /> },
+	]);
+
+	return routes;
+};
+
+// MAIN APP COMPONENT
+function App() {
+	return (
+		<BrowserRouter>
+			<AppRoutes />
+		</BrowserRouter>
+	);
+}
+
+export default App;
+```
+
+As we can there are two components above, the first one define the routes, this means that based on the url path it is going to throw an element or another, if the url path is not defined the default element thrown is `<NotFound>`.
+
+The second component is the App component, which is making use of the `<BrowserRouter>` . The BrowserRouter component is essential for enabling routing. It provides the context and history objects that the routing hooks (useRoutes, useNavigate, etc.) rely on to function correctly.
+
+### Why BrowserRouter is Necessary
+
+The BrowserRouter component is the backbone of React Router. It listens to changes in the URL and interprets them to match the appropriate route. Without wrapping your routes inside BrowserRouter, any routing logic won't work as expected, and you'll likely encounter errors.
+
+### Can You Use AppRoutes Without BrowserRouter?
+
+No, you cannot use AppRoutes alone without wrapping it in BrowserRouter. If you try to render AppRoutes without BrowserRouter, you'll encounter an error because useRoutes and other React Router hooks expect to be used within a Router component (like BrowserRouter, HashRouter, etc.).
 
 <br>
 <br>

@@ -11,6 +11,9 @@ import MyOrders from '../MyOrders';
 import NotFound from '../NotFound';
 import SignIn from '../SignIn';
 
+// COMPONENTS
+import { Navbar } from '../../Components/Navbar';
+
 import './App.css';
 
 // ROUTES COMPONENT
@@ -35,6 +38,7 @@ function App() {
 	return (
 		<BrowserRouter>
 			<AppRoutes />
+			<Navbar />
 		</BrowserRouter>
 	);
 }

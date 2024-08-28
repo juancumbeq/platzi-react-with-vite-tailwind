@@ -1,8 +1,10 @@
+import { Layout } from '../../Components/Layout';
+
 function MyOrders() {
 	return (
-		<div className='text-3xl font-bold underline'>
-			MyOrders
-		</div>
+		<Layout>
+			<div className=''>MyOrders</div>
+		</Layout>
 	);
 }
 

@@ -280,10 +280,26 @@ If `isActive` is true, the string contained in `activeStyle` is returned. This a
 
 ## [LAYOUT COMPONENT]()
 
+```javascript
+function Layout({ children }) {
+	return (
+		<div className='flex flex-col items-center mt-20'>
+			{children}
+		</div>
+	);
+}
+
+export { Layout };
+```
+
+The Layout component is like a wrapper to every other page, by this way we can apply all the same styles to the whole web page.
+
 <br>
 <br>
 
 ## [CARD COMPONENT]()
+
+
 
 <br>
 <br>

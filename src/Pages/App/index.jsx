@@ -3,6 +3,9 @@ import {
 	BrowserRouter,
 } from 'react-router-dom';
 
+// CONTEXT
+import { ShoppingCartProvider } from '../../Context';
+
 // APPLICATION PAGES
 import Home from '../Home';
 import MyAccount from '../MyAccount';
@@ -36,10 +39,12 @@ const AppRoutes = () => {
 // MAIN APP COMPONENT
 function App() {
 	return (
-		<BrowserRouter>
-			<AppRoutes />
-			<Navbar />
-		</BrowserRouter>
+		<ShoppingCartProvider>
+			<BrowserRouter>
+				<AppRoutes />
+				<Navbar />
+			</BrowserRouter>
+		</ShoppingCartProvider>
 	);
 }
 

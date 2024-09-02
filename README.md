@@ -378,7 +378,56 @@ The card component receives the information as a prop object, having access to a
 
 # GLOBAL STATE HANDLING WITH CONTEXT
 
-## [CONTEXTO GLOBAL DE LA APLICACIÓN]()
+## [APPLICATION GLOBAL CONTEXT]()
+
+Instead of using local states it is better to use global states, by this way there is no possibility of prop drilling, so any component can access the context without needing props.
+
+Context:
+
+```javascript
+import { createContext } from 'react';
+
+// CONTEXT CREATION
+const ShoppingCartContext = createContext();
+
+// COMPONENT PROVIDER
+function ShoppingCartProvider({ children }) {
+	// RETURN STATEMENT USING CONTEXT PROVIDER
+	return (
+		<ShoppingCartContext.Provider
+		value={...}>
+			{children}
+		</ShoppingCartContext.Provider>
+	);
+}
+
+export { ShoppingCartContext, ShoppingCartProvider };
+```
+
+As we can see it is necessary to create a context, after that and making use of another React component the children components passed as props are wrapped inside the context provider. In this way all of the children can access the value data.
+
+App:
+
+```javascript
+// CONTEXT
+import { ShoppingCartProvider } from '../../Context';
+
+// MAIN APP COMPONENT
+function App() {
+	return (
+		<ShoppingCartProvider>
+			<BrowserRouter>
+				<AppRoutes />
+				<Navbar />
+			</BrowserRouter>
+		</ShoppingCartProvider>
+	);
+}
+```
+
+In the app component is necessary to wrap all of the other components to make them be able to consume the value data.
+
+Insi
 
 <br>
 <br>

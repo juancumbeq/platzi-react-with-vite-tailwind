@@ -339,6 +339,39 @@ This component is going to be the window where the different products are shown.
 
 ## [CONSUMING THE FAKESTORE API TO COLOUR CARDS]()
 
+This project is built using fake data as product information, however it is necessary to consume an api to get that information.
+
+```javascript
+function Home() {
+	const [items, setItems] = useState(null);
+
+	useEffect(() => {
+		fetch(urlApi)
+			.then((response) => response.json())
+			.then((data) => setItems(data));
+	}, []);
+
+	console.log(items);
+
+	return (
+		<Layout>
+			Home
+			<div className='grid grid-cols-2 gap-6 w-full max-w-lg'>
+				{items?.map((item) => (
+					<Card key={item.id} data={item} />
+				))}
+			</div>
+		</Layout>
+	);
+}
+
+export default Home;
+```
+
+The home component retrieves the data and set the local state with the objects array received. The return statement executes a `map()` method to iterate over the array rendering a card component on every object found in the array.
+
+The card component receives the information as a prop object.
+
 <br>
 <br>
 <br>

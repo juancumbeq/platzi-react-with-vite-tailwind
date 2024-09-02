@@ -427,12 +427,93 @@ function App() {
 
 In the app component is necessary to wrap all of the other components to make them be able to consume the value data.
 
-Insi
-
 <br>
 <br>
 
-## [CONTADOR DE PRODUCTOS EN EL CARRITO]()
+## [PRODUCT COUNTER IN THE SHOPPING CART]()
+
+In every ecommerce there is a shopping cart counter that shows the amount of selected products. To create this feature is necessary to make use of the context in both component, the card and the navbar component.
+
+Context
+
+```javascript
+import { createContext, useState } from 'react';
+
+// CONTEXT CREATION
+const ShoppingCartContext = createContext();
+
+// COMPONENT PROVIDER
+function ShoppingCartProvider({ children }) {
+	// Global state cart counter
+	const [count, setCount] = useState(0);
+	// console.log('Count: ', count);
+
+	// RETURN STATEMENT USING CONTEXT PROVIDER
+	return (
+		<ShoppingCartContext.Provider
+			value={{ count, setCount }}
+		>
+			{children}
+		</ShoppingCartContext.Provider>
+	);
+}
+
+export {
+	ShoppingCartContext,
+	ShoppingCartProvider,
+};
+```
+
+Card
+
+```javascript
+import { useContext } from 'react';
+
+// GLOBAL CONTEXT
+import { ShoppingCartContext } from '../../Context';
+
+const Card = ({ data }) => {
+	// LOCAL CONTEXT BASED ON GLOBAL CONTEXT
+	const context = useContext(ShoppingCartContext);
+
+	return (
+		{...}
+		<div
+			className='absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1'
+			onClick={() =>
+				context.setCount(context.count + 1)
+			}
+		>
+			+
+		</div>
+	);
+};
+
+export { Card };
+```
+
+Navbar
+
+```javascript
+<li>Cart {context.count}</li>
+```
+
+As we can see, we can access `count` and `setCount` as a property of the consumed context, there is an explanation for that:
+
+`value={{ count, setCount }}` defines the value that will be available in the context for any components that consume it. In this case, both count (the current state of the counter) and setCount (the function to update that counter) are accessible from any component that uses this context.
+
+In the Card component, you are using useContext to access the context that you created earlier.
+
+- `useContext(ShoppingCartContext)` returns the current value of the `context`, which in this case is `{ count, setCount }`.
+
+- `context.setCount(context.count + 1)` is using `setCount` to increment the value of `count` by 1.
+
+You can access `setCount` as if it were a property of `context`, because this is how context works in React:
+
+- The value that the context provider `(ShoppingCartProvider)` passes to its children (in `value={{ count, setCount }}`) is an object containing both `count` and `setCount`.
+
+- When you use `useContext(ShoppingCartContext)`, you access this object.
+This allows you to use `context.count` to get the current value of the `counter` and `context.setCount` to update it.
 
 <br>
 <br>

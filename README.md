@@ -370,7 +370,7 @@ export default Home;
 
 The home component retrieves the data and set the local state with the objects array received. The return statement executes a `map()` method to iterate over the array rendering a card component on every object found in the array.
 
-The card component receives the information as a prop object.
+The card component receives the information as a prop object, having access to all the specific information.
 
 <br>
 <br>

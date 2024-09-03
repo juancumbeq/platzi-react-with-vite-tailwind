@@ -513,12 +513,53 @@ You can access `setCount` as if it were a property of `context`, because this is
 - The value that the context provider `(ShoppingCartProvider)` passes to its children (in `value={{ count, setCount }}`) is an object containing both `count` and `setCount`.
 
 - When you use `useContext(ShoppingCartContext)`, you access this object.
-This allows you to use `context.count` to get the current value of the `counter` and `context.setCount` to update it.
+  This allows you to use `context.count` to get the current value of the `counter` and `context.setCount` to update it.
 
 <br>
 <br>
 
-## [ABRIENDO EL DETALLE DE CADA PRODUCTO]()
+## [PRODUCT DETAILS]()
+
+The following component represents the modal which is opened everytime we click over a product to review their details.
+
+Product Detail
+
+```jsx
+import './styles.css';
+import { XCircleIcon } from '@heroicons/react/24/outline';
+
+function ProductDetail() {
+	return (
+		<aside className='product-detail flex flex-col fixed right-0 border border-black rounded-lg bg-white'>
+			<div className='flex justify-between items-center p-6'>
+				<h2 className='font-medium text-xl'>
+					Detail
+				</h2>
+				<div>x</div>
+				<XCircleIcon className='size-6'></XCircleIcon>
+			</div>
+		</aside>
+	);
+}
+
+export { ProductDetail };
+```
+
+The product details component is inserted in the home page.
+
+Home
+
+```jsx
+<Layout>
+	Home
+	<div className='grid grid-cols-2 gap-6 w-full max-w-lg'>
+		{items?.map((item) => (
+			<Card key={item.id} data={item} />
+		))}
+	</div>
+	<ProductDetail />
+</Layout>
+```
 
 <br>
 <br>

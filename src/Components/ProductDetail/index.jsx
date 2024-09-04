@@ -8,8 +8,7 @@ function ProductDetail() {
 				<h2 className='font-medium text-xl'>
 					Detail
 				</h2>
-				<div>x</div>
-				<XCircleIcon className='size-6'></XCircleIcon>
+				<XCircleIcon className='size-6 text-black'></XCircleIcon>
 			</div>
 		</aside>
 	);

@@ -564,7 +564,37 @@ Home
 <br>
 <br>
 
-## [RETO: HEROICONS WITH TAILWINDCSS]()
+## [CHALLENGE: HEROICONS WITH TAILWINDCSS]()
+
+This is the icons library we are using in this project: [https://heroicons.com/outline]().
+
+Following the documentation the command to install the module is:
+
+```shell
+npm install @heroicons/react
+```
+
+To add an icon inside a component, this is an example:
+
+```javascript
+import './styles.css';
+import { XCircleIcon } from '@heroicons/react/24/outline';
+
+function ProductDetail() {
+	return (
+		<aside className='product-detail flex flex-col fixed right-0 border border-black rounded-lg bg-white'>
+			<div className='flex justify-between items-center p-6'>
+				<h2 className='font-medium text-xl'>
+					Detail
+				</h2>
+				<XCircleIcon className='size-6 text-black'></XCircleIcon>
+			</div>
+		</aside>
+	);
+}
+
+export { ProductDetail };
+```
 
 <br>
 <br>

@@ -1,6 +1,8 @@
-import { useContext } from 'react';
+// ICONS
+import { PlusIcon } from '@heroicons/react/24/outline';
 
 // GLOBAL CONTEXT
+import { useContext } from 'react';
 import { ShoppingCartContext } from '../../Context';
 
 const Card = ({ data }) => {
@@ -24,7 +26,7 @@ const Card = ({ data }) => {
 						context.setCount(context.count + 1)
 					}
 				>
-					+
+					<PlusIcon className='size-6 text-black'></PlusIcon>
 				</div>
 			</figure>
 			<p className='flex justify-between'>

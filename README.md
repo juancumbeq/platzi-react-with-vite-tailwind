@@ -599,7 +599,75 @@ export { ProductDetail };
 <br>
 <br>
 
-## [MAQUETANDO EN PRODUCTDETAIL]()
+## [LAYING OUT PRODUCTDETAIL]()
+
+Inside the context component there is another react state to control whether the modal is opened or not, also there are other two functions to set the modal status.
+
+Context:
+
+```javascript
+import { createContext, useState } from 'react';
+
+// CONTEXT CREATION
+const ShoppingCartContext = createContext();
+
+// COMPONENT PROVIDER
+function ShoppingCartProvider({ children }) {
+	// Global states
+	const [count, setCount] = useState(0);
+	const [
+		isProductDetailOpen,
+		setIsProductDetailOpen,
+	] = useState(false);
+	const openProductDetail = () =>
+		setIsProductDetailOpen(true);
+	const closeProductDetail = () =>
+		setIsProductDetailOpen(false);
+
+	// RETURN STATEMENT USING CONTEXT PROVIDER
+	return (
+		<ShoppingCartContext.Provider
+			value={{
+				count,
+				setCount,
+				openProductDetail,
+				closeProductDetail,
+				isProductDetailOpen,
+			}}
+		>
+			{children}
+		</ShoppingCartContext.Provider>
+	);
+}
+
+export {
+	ShoppingCartContext,
+	ShoppingCartProvider,
+};
+```
+
+On the card component the `onClick` event is set to every card rendered, setting the react state to `true`.
+
+Card:
+
+```javascript
+<div
+	className='bg-white cursor-pointer w-56 h-60 rounded-lg'
+	onClick={() => context.openProductDetail()}
+></div>
+```
+
+On the product details component we are using template literals lo set classes dinamicaly, so based on the `isProductDetailOpen` status we can set the component visible or hidden
+
+Product details:
+
+```javascript
+<aside
+	className={`${
+		isProductDetailOpen ? `flex` : `hidden`
+	} product-detail flex-col fixed right-0 border border-black rounded-lg bg-white`}
+></aside>
+```
 
 <br>
 <br>

@@ -5,14 +5,27 @@ const ShoppingCartContext = createContext();
 
 // COMPONENT PROVIDER
 function ShoppingCartProvider({ children }) {
-	// Global state cart counter
+	// Global states
 	const [count, setCount] = useState(0);
-	// console.log('Count: ', count);
+	const [
+		isProductDetailOpen,
+		setIsProductDetailOpen,
+	] = useState(false);
+	const openProductDetail = () =>
+		setIsProductDetailOpen(true);
+	const closeProductDetail = () =>
+		setIsProductDetailOpen(false);
 
 	// RETURN STATEMENT USING CONTEXT PROVIDER
 	return (
 		<ShoppingCartContext.Provider
-			value={{ count, setCount }}
+			value={{
+				count,
+				setCount,
+				openProductDetail,
+				closeProductDetail,
+				isProductDetailOpen,
+			}}
 		>
 			{children}
 		</ShoppingCartContext.Provider>

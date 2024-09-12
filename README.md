@@ -672,7 +672,54 @@ Product details:
 <br>
 <br>
 
-## [MOSTRANDO PRODUCTOS EN PRODUCTDETAIL]()
+## [SHOWING PRODUCTS IN PRODUCTDETAIL]()
+
+Once the product detail component is rendered it is important to show the product information, in order to do that, inside the context file another global state is created and exported inside the value object.
+
+Context:
+
+```javascript
+// Product Detail - Show Product
+const [productToShow, setProductToShow] =
+	useState({});
+```
+
+Inside the card component there are some changes, every time a card is clicked the product data related to that specific card must be sent to the product detail component to be rendered as well, this is why in the `onClick()` event there is another function.
+
+Card:
+
+```javascript
+// FUNCTION TO SEND DATA TO THE MODAL AND OPEN
+const showProduct = (productDetail) => {
+	context.openProductDetail();
+	context.setProductToShow(productDetail);
+};
+```
+
+As the global state is updated with the produdct data using the card component function, now that data is available to be consumed by the product detail component.
+
+Product Detail:
+
+```javascript
+<figure className='px-6'>
+	<img
+		className='w-full h-full rounded-lg'
+		src={productToShow.image}
+		alt={productToShow.image}
+	/>
+</figure>
+<p className='flex flex-col p-6'>
+	<span className='font-medium text-2xl mb-2'>
+		${productToShow.price}
+	</span>
+	<span className='font-medium text-md mb-1'>
+		{productToShow.title}
+	</span>
+	<span className='font-light text-sm'>
+		{productToShow.description}
+	</span>
+</p>
+```
 
 <br>
 <br>

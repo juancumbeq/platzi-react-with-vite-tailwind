@@ -6,7 +6,11 @@ const ShoppingCartContext = createContext();
 // COMPONENT PROVIDER
 function ShoppingCartProvider({ children }) {
 	// Global states
+
+	// Shopping Cart - Increment quantity
 	const [count, setCount] = useState(0);
+
+	// Product Detail - Open/Close
 	const [
 		isProductDetailOpen,
 		setIsProductDetailOpen,
@@ -15,6 +19,10 @@ function ShoppingCartProvider({ children }) {
 		setIsProductDetailOpen(true);
 	const closeProductDetail = () =>
 		setIsProductDetailOpen(false);
+
+	// Product Detail - Show Product
+	const [productToShow, setProductToShow] =
+		useState({});
 
 	// RETURN STATEMENT USING CONTEXT PROVIDER
 	return (
@@ -25,6 +33,8 @@ function ShoppingCartProvider({ children }) {
 				openProductDetail,
 				closeProductDetail,
 				isProductDetailOpen,
+				productToShow,
+				setProductToShow,
 			}}
 		>
 			{children}

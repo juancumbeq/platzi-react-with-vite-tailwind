@@ -729,6 +729,40 @@ Product Detail:
 
 # [ADDING PRODUCTS TO THE CART]()
 
+Before showing the products added to the user it is necessary to create the global state to store them. Inside the context component we create a React state, initialized with an empty array.
+
+Context:
+
+```javascript
+// Shopping Cart - Add products to cart
+const [cartProducts, setCartProducts] = useState(
+	[]
+);
+```
+
+In the card component we consume the context to access the array and the modifier method. Also we create another function to be executen when the `onClick()` event occurs. As we can see the function modifies the counter and expands the `cartProducts` state array with the `productData`.
+
+Card:
+
+```javascript
+const addProductsToCart = (productData) => {
+	context.setCount(context.count + 1);
+	// Expands the array created on the state, adding the productData object
+	context.setCartProducts([
+		...context.cartProducts,
+		productData,
+	]);
+	console.log('CART: ', context.cartProducts);
+};
+
+<div
+	className='absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1'
+	onClick={() => addProductsToCart(data)}
+>
+	<PlusIcon className='size-6 text-black'></PlusIcon>
+</div>;
+```
+
 <br>
 <br>
 

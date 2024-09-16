@@ -24,6 +24,10 @@ function ShoppingCartProvider({ children }) {
 	const [productToShow, setProductToShow] =
 		useState({});
 
+	// Shopping Cart - Add products to cart
+	const [cartProducts, setCartProducts] =
+		useState([]);
+
 	// RETURN STATEMENT USING CONTEXT PROVIDER
 	return (
 		<ShoppingCartContext.Provider
@@ -35,6 +39,8 @@ function ShoppingCartProvider({ children }) {
 				isProductDetailOpen,
 				productToShow,
 				setProductToShow,
+				cartProducts,
+				setCartProducts,
 			}}
 		>
 			{children}

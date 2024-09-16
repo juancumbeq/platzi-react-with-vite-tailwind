@@ -727,7 +727,7 @@ Product Detail:
 
 # SHOPPING CART
 
-# [ADDING PRODUCTS TO THE CART]()
+## [ADDING PRODUCTS TO THE CART]()
 
 Before showing the products added to the user it is necessary to create the global state to store them. Inside the context component we create a React state, initialized with an empty array.
 
@@ -767,6 +767,301 @@ const addProductsToCart = (productData) => {
 <br>
 
 ## [CART SIDEMENU]()
+
+This new component is going to wrap all of the selected items by clicking the `+` icon. Is similar to the product details component.
+
+CheckoutSideMenu:
+
+```javascript
+// STYLES
+import './styles.css';
+import { XCircleIcon } from '@heroicons/react/24/outline';
+
+// CONTEXT
+import { useContext } from 'react';
+import { ShoppingCartContext } from '../../Context';
+
+function CheckoutSideMenu() {
+	// CONTEXT STATES
+	const {
+		isCheckoutSideMenuOpen,
+		closeCheckoutSideMenu,
+		productToShow,
+	} = useContext(ShoppingCartContext);
+
+	return (
+		<aside
+			className={`${
+				isCheckoutSideMenuOpen ? `flex` : `hidden`
+			} checkout-side-menu flex-col fixed right-0 border border-black rounded-lg bg-white`}
+		>
+			<div className='flex justify-between items-center p-6'>
+				<h2 className='font-medium text-xl'>
+					My order
+				</h2>
+				<XCircleIcon
+					className='size-6 text-black cursor-pointer'
+					onClick={() => closeCheckoutSideMenu()}
+				></XCircleIcon>
+			</div>
+		</aside>
+	);
+}
+
+export { CheckoutSideMenu };
+```
+
+In the context component are defined all the methods to open and close the checkout side menu modal.
+
+Context:
+
+```javascript
+// Checkout side menu - Open/Close
+const [
+	isCheckoutSideMenuOpen,
+	setIsCheckoutSideMenuOpen,
+] = useState(false);
+const openCheckoutSideMenu = () =>
+	setIsCheckoutSideMenuOpen(true);
+const closeCheckoutSideMenu = () =>
+	setIsCheckoutSideMenuOpen(false);
+```
+
+The card component is the more important one because is in charge to manage the events. The main div of the card component is handling the `onClick()` event by showing the product details modal, but the `+` icon is handling the checkout side menu modal. So, in order to separate the events we had to use the `stopPropagation()` method in the bubble phase. To know more check the info below.
+
+Card:
+
+```javascript
+const addProductsToCart = (
+	event,
+	productData
+) => {
+	// Stopping the event handling by thw showProduct function
+	event.stopPropagation();
+	context.setCount(context.count + 1);
+	// Expands the array created on the state, adding the productData object
+	context.setCartProducts([
+		...context.cartProducts,
+		productData,
+	]);
+	// Checkout side menu
+	context.openCheckoutSideMenu();
+	context.closeProductDetail();
+	console.log('CART: ', context.cartProducts);
+};
+
+<div
+	className='absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1'
+	onClick={(event) =>
+		addProductsToCart(event, data)
+	}
+>
+	<PlusIcon className='size-6 text-black'></PlusIcon>
+</div>;
+```
+
+The checkout side menu component is inserted in the app component in order to be available in different pages, to know more about how the components are managed check the info below.
+
+App:
+
+```javascript
+// MAIN APP COMPONENT
+function App() {
+	return (
+		<ShoppingCartProvider>
+			<BrowserRouter>
+				<AppRoutes />
+				<Navbar />
+				<CheckoutSideMenu />
+			</BrowserRouter>
+		</ShoppingCartProvider>
+	);
+}
+```
+
+### `stopPropagation()`
+
+The `stopPropagation()` method in JavaScript is used to control the flow of events in the **DOM event model**. Specifically, this method prevents an event from continuing to propagate through the DOM tree once it has been triggered.
+
+To better understand how `stopPropagation()` works, it's important to know about the two phases of event propagation in the DOM event model:
+
+1. **Capturing phase**: The event propagates from the outermost element (the root of the document) down to the target element where the event occurred.
+2. **Bubbling phase**: After the event reaches the target element, it starts to propagate back up the DOM tree to the outermost element.
+
+The `stopPropagation()` method is used to **stop the event from propagating** in either of these phases, preventing the event from being handled by any other elements. This ensures that only the current element processes the event, without affecting parent or child elements.
+
+#### Example:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<title>stopPropagation Example</title>
+		<style>
+			.outer {
+				background-color: lightblue;
+				padding: 20px;
+			}
+			.inner {
+				background-color: lightcoral;
+				padding: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="outer">
+			Outer Div
+			<div class="inner">Inner Div</div>
+		</div>
+
+		<script>
+			const outerDiv =
+				document.querySelector('.outer');
+			const innerDiv =
+				document.querySelector('.inner');
+
+			// Event on the outer container
+			outerDiv.addEventListener(
+				'click',
+				function () {
+					alert('Outer div clicked!');
+				}
+			);
+
+			// Event on the inner container
+			innerDiv.addEventListener(
+				'click',
+				function (event) {
+					alert('Inner div clicked!');
+					// Stop the event from propagating
+					event.stopPropagation();
+				}
+			);
+		</script>
+	</body>
+</html>
+```
+
+#### Explanation:
+
+- When you click on the inner `div` (with the class `inner`), the alert "Inner div clicked!" appears, and `stopPropagation()` is called. This stops the event from propagating, so the event handler attached to the outer `div` does not execute.
+- If you remove `event.stopPropagation()`, clicking on the inner `div` will also trigger the event on the outer `div` due to the bubbling phase.
+
+#### When to use `stopPropagation()`?
+
+- When you want an event to be handled by a specific element and don't want it to propagate to its parent elements.
+- To prevent unintended behavior in other elements when an event is triggered on a child node.
+
+It’s a useful tool to have fine control over how events are handled on a website.
+
+<br>
+
+### Components management in the App component
+
+#### 1. **Routing Components (useRoutes and BrowserRouter)**
+
+The `AppRoutes` component defines the application routes using `useRoutes()`. This hook from `react-router-dom` allows you to create an array of objects that map routes (with their respective `path`) to their corresponding components (`element`). The routes array in this case includes:
+
+- `/` → `Home` component.
+- `/my-account` → `MyAccount` component.
+- `/my-order` → `MyOrder` component.
+- `/my-orders` → `MyOrders` component.
+- `/signin` → `SignIn` component.
+- `/*` → `NotFound` component (a wildcard route to handle non-existent routes).
+
+All of this is wrapped in the `BrowserRouter`, which manages the browser history and makes the routing functionality work properly.
+
+#### 2. **The `Navbar` below `AppRoutes`**
+
+You might wonder why the `Navbar` is placed below `AppRoutes` instead of inside each page or route. Here are several reasons for this decision:
+
+- **Global Layout Strategy**: The `Navbar` is rendered **once** outside the routing system. This means that regardless of the current route (whether `/`, `/my-account`, etc.), the `Navbar` will always be visible. Placing it below `AppRoutes` ensures that the `Navbar` remains fixed on all pages.
+
+  - If you placed the `Navbar` inside each individual component (like `Home`, `MyAccount`, etc.), the `Navbar` would **re-render** every time you navigate between pages, which is unnecessary and could affect performance.
+
+- **Better Organization and Maintenance**: By placing the `Navbar` outside specific routes, you ensure it’s centralized and you don’t need to repeat the code in every page component. This simplifies the structure and makes maintenance easier.
+
+#### 3. **The `CheckoutSideMenu`**
+
+The `CheckoutSideMenu` is also outside `AppRoutes`, just like the `Navbar`. This likely has to do with how it functions within the application:
+
+- **Global Accessibility**: Since the `CheckoutSideMenu` is part of the shopping experience (e.g., a menu that shows products added to the cart), it should be accessible from **any part of the app**, regardless of which route the user is on.
+
+- **Global State**: By placing it outside the routing system, the `CheckoutSideMenu` can be controlled and displayed from any page without needing to be rendered directly in each one. The `ShoppingCartProvider` (which is the global context for the shopping cart) also wraps the entire app, meaning `CheckoutSideMenu` can easily consume the cart state from anywhere in the app.
+
+##### Example of Behavior:
+
+- Imagine the user is on the `/my-account` page but decides to open the cart via the `CheckoutSideMenu`. Placing this component outside the routing system ensures that it is available no matter what page you’re on, as it’s part of the global interface.
+
+#### 4. **ShoppingCartProvider Context**
+
+The `App` component is wrapped by the `ShoppingCartProvider`, which manages global state related to the shopping cart. All components within `ShoppingCartProvider` (including `AppRoutes`, `Navbar`, and `CheckoutSideMenu`) can access the global cart state. This allows any component to interact with the cart, which is especially important for both the `CheckoutSideMenu` and `Navbar`.
+
+#### Summary
+
+- **`Navbar`**: It’s outside the routes to avoid unnecessary re-renders and to ensure it stays fixed across the entire application.
+- **`CheckoutSideMenu`**: It’s placed in the root so that it’s available and accessible from any part of the app, regardless of the current page.
+- **`useRoutes()`**: Manages the main routes, but global components like `Navbar` and `CheckoutSideMenu` are independent of the routes, providing a better user experience by always being available.
+
+This design follows a **global layout** pattern, where certain components (such as the navigation bar and important menus) are rendered only once and remain visible throughout the entire app.
+
+Placing the `Navbar` **above** `AppRoutes` in the code order **would not affect the rendering** or functionality of the application in terms of routing or the visibility of the `Navbar`. In React, the order in which components appear in the code does not necessarily reflect the order in which they are rendered visually on the page.
+
+#### If we change the order of the code:
+
+Instead of this code:
+
+```jsx
+<BrowserRouter>
+	<AppRoutes />
+	<Navbar />
+	<CheckoutSideMenu />
+</BrowserRouter>
+```
+
+You could have it like this:
+
+```jsx
+<BrowserRouter>
+	<Navbar />
+	<AppRoutes />
+	<CheckoutSideMenu />
+</BrowserRouter>
+```
+
+#### Why it doesn't affect rendering:
+
+1. **DOM Order**: Even if you change the order in which components are written, what really matters is the **DOM** and **CSS layout**. The `Navbar` will still be present on the page and will remain visible because it is outside of the specific routes and does not depend on them.
+
+   - If you place the `Navbar` before `AppRoutes`, it will appear earlier in the component tree, but visually it will depend on the **CSS** or **styles** applied for positioning (e.g., if it's fixed at the top of the page, it will always stay in that position).
+
+2. **React Rendering**: React renders components in the order they appear in the JSX tree, but there is no technical issue with placing the `Navbar` either before or after `AppRoutes`, as long as both are wrapped by `BrowserRouter`. React will continue updating `AppRoutes` when the route changes, and the `Navbar` will stay on the screen as it is not affected by route changes.
+
+#### Example:
+
+If you decide to change the order to:
+
+```jsx
+<BrowserRouter>
+	<Navbar />
+	<AppRoutes />
+	<CheckoutSideMenu />
+</BrowserRouter>
+```
+
+This new order will not change the expected visual behavior because the `Navbar` will still be present and accessible on all routes. The same applies to `CheckoutSideMenu`.
+
+#### When might rendering be affected?
+
+The only case where it might affect rendering is if there are specific behaviors or styles that depend on the rendering order in the DOM, such as:
+
+- If the `Navbar` has CSS styles that depend on being before or after another component (like `position: relative`, `z-index`, etc.), there might be a visual impact.
+- If `AppRoutes` or the routes contain components that depend on some state managed within the `Navbar`, you might need to manage the mounting order. However, for a navigation bar like the one described, this should not be an issue.
 
 <br>
 <br>

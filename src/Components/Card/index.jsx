@@ -15,13 +15,21 @@ const Card = ({ data }) => {
 		context.setProductToShow(productDetail);
 	};
 
-	const addProductsToCart = (productData) => {
+	const addProductsToCart = (
+		event,
+		productData
+	) => {
+		// Stopping the event handling by thw showProduct function
+		event.stopPropagation();
 		context.setCount(context.count + 1);
 		// Expands the array created on the state, adding the productData object
 		context.setCartProducts([
 			...context.cartProducts,
 			productData,
 		]);
+		// Checkout side menu
+		context.openCheckoutSideMenu();
+		context.closeProductDetail();
 		console.log('CART: ', context.cartProducts);
 	};
 
@@ -41,7 +49,9 @@ const Card = ({ data }) => {
 				/>
 				<div
 					className='absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1'
-					onClick={() => addProductsToCart(data)}
+					onClick={(event) =>
+						addProductsToCart(event, data)
+					}
 				>
 					<PlusIcon className='size-6 text-black'></PlusIcon>
 				</div>

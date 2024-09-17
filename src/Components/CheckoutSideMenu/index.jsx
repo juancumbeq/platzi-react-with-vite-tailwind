@@ -1,3 +1,5 @@
+import { OrderCard } from '../OrderCard';
+
 // STYLES
 import './styles.css';
 import { XCircleIcon } from '@heroicons/react/24/outline';
@@ -11,8 +13,10 @@ function CheckoutSideMenu() {
 	const {
 		isCheckoutSideMenuOpen,
 		closeCheckoutSideMenu,
-		productToShow,
+		cartProducts,
 	} = useContext(ShoppingCartContext);
+
+	console.log('CART: ', cartProducts);
 
 	return (
 		<aside
@@ -28,6 +32,17 @@ function CheckoutSideMenu() {
 					className='size-6 text-black cursor-pointer'
 					onClick={() => closeCheckoutSideMenu()}
 				></XCircleIcon>
+			</div>
+
+			<div className='px-6'>
+				{cartProducts.map((product) => (
+					<OrderCard
+						key={product.id}
+						title={product.title}
+						imageURL={product.image}
+						price={product.price}
+					/>
+				))}
 			</div>
 		</aside>
 	);

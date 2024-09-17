@@ -30,7 +30,6 @@ const Card = ({ data }) => {
 		// Checkout side menu
 		context.openCheckoutSideMenu();
 		context.closeProductDetail();
-		console.log('CART: ', context.cartProducts);
 	};
 
 	return (

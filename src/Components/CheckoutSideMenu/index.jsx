@@ -14,7 +14,16 @@ function CheckoutSideMenu() {
 		isCheckoutSideMenuOpen,
 		closeCheckoutSideMenu,
 		cartProducts,
+		setCartProducts,
 	} = useContext(ShoppingCartContext);
+
+	// DELETE CART PRODUCTS
+	const handleDelete = (id) => {
+		const filteredProducts = cartProducts.filter(
+			(product) => product.id != id
+		);
+		setCartProducts(filteredProducts);
+	};
 
 	return (
 		<aside
@@ -36,9 +45,11 @@ function CheckoutSideMenu() {
 				{cartProducts.map((product) => (
 					<OrderCard
 						key={product.id}
+						id={product.id}
 						title={product.title}
 						imageURL={product.image}
 						price={product.price}
+						handleDelete={handleDelete}
 					/>
 				))}
 			</div>

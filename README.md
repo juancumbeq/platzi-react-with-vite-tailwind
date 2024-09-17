@@ -1201,6 +1201,86 @@ const renderIcon = (id) => {
 
 ## [REMOVE PRODUCTS FROM THE CART]()
 
+Now we can add products to our cart, but it is necessary to remove them any time. In order to do that we have to set the `onClick()` event, deleting the selected product from the `cartProducts` array.
+
+In the checkout side menu we handle this event, passing the `handleDelete` function as a prop to the order card component.
+
+CheckoutSideMenu:
+
+```javascript
+import { OrderCard } from '../OrderCard';
+
+// STYLES
+import './styles.css';
+import { XCircleIcon } from '@heroicons/react/24/outline';
+
+// CONTEXT
+import { useContext } from 'react';
+import { ShoppingCartContext } from '../../Context';
+
+function CheckoutSideMenu() {
+	// CONTEXT STATES
+	const {
+		isCheckoutSideMenuOpen,
+		closeCheckoutSideMenu,
+		cartProducts,
+		setCartProducts,
+	} = useContext(ShoppingCartContext);
+
+	// DELETE CART PRODUCTS
+	const handleDelete = (id) => {
+		const filteredProducts = cartProducts.filter(
+			(product) => product.id != id
+		);
+		setCartProducts(filteredProducts);
+	};
+
+	return (
+		<aside
+			className={`${
+				isCheckoutSideMenuOpen ? `flex` : `hidden`
+			} checkout-side-menu flex-col fixed right-0 border border-black rounded-lg bg-white`}
+		>
+			<div className='flex justify-between items-center p-6'>
+				<h2 className='font-medium text-xl'>
+					My order
+				</h2>
+				<XCircleIcon
+					className='size-6 text-black cursor-pointer'
+					onClick={() => closeCheckoutSideMenu()}
+				></XCircleIcon>
+			</div>
+
+			<div className='px-6 overflow-y-scroll'>
+				{cartProducts.map((product) => (
+					<OrderCard
+						key={product.id}
+						id={product.id}
+						title={product.title}
+						imageURL={product.image}
+						price={product.price}
+						handleDelete={handleDelete}
+					/>
+				))}
+			</div>
+		</aside>
+	);
+}
+
+export { CheckoutSideMenu };
+```
+
+In the order card we receive various props, one of the is the function `handleDelete`. The parameter is necessary to know which product have to be deleted.
+
+OrderCard:
+
+```javascript
+<XMarkIcon
+	className='h-6 w-6 text-black cursor-pointer'
+	onClick={() => handleDelete(id)}
+></XMarkIcon>
+```
+
 <br>
 <br>
 

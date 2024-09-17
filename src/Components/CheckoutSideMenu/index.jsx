@@ -1,4 +1,5 @@
 import { OrderCard } from '../OrderCard';
+import { totalPrice } from '../../Utils';
 
 // STYLES
 import './styles.css';
@@ -52,6 +53,16 @@ function CheckoutSideMenu() {
 						handleDelete={handleDelete}
 					/>
 				))}
+				<div className='px-9 mt-6'>
+					<p className='flex justify-between items-center'>
+						<span className='font-light'>
+							Total:
+						</span>
+						<span className='font-medium text-xl'>
+							${totalPrice(cartProducts)}
+						</span>
+					</p>
+				</div>
 			</div>
 		</aside>
 	);

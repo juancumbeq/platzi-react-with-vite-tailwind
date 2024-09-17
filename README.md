@@ -1286,6 +1286,43 @@ OrderCard:
 
 ## [TOTAL SUM OF PRODUCTS IN THE CART]()
 
+In every checkout there is the total sum of the selected products, in order to do that we use another function called `totalPrice()` built in a .js file.
+
+Utils:
+
+```javascript
+/**
+ * This function calculates total prices of a new order
+ * @param {Array} products cartProducts: Array of Objects
+ * @returns {number} Total price
+ */
+
+const totalPrice = (products) => {
+	let sum = 0;
+	products.forEach(
+		(product) => (sum += product.price)
+	);
+	return sum;
+};
+
+export { totalPrice };
+```
+
+In the checkout side menu component the function `totalPrice()` is imported, and then used below, using the `cartProducts` as an argument.
+
+CheckoutSideMenu:
+
+```javascript
+<div className='px-9 mt-6'>
+	<p className='flex justify-between items-center'>
+		<span className='font-light'>Total:</span>
+		<span className='font-medium text-xl'>
+			${totalPrice(cartProducts)}
+		</span>
+	</p>
+</div>
+```
+
 <br>
 <br>
 <br>

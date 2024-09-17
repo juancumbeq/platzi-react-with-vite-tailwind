@@ -1158,6 +1158,44 @@ export { CheckoutSideMenu };
 
 ## [AVOIDING DUPLICATE PRODUCTS IN THE CART]()
 
+Until this point we can add products to the shopping cart without any limitation, but we have to set the application to avoid duplicate products in the cart.
+
+Also after adding a product the `+` icon must change to a check icon, indicating the product is already added.
+
+In the card component there is another function handling this situation, if the product is already at the `cartProducts` array the check icon is rendered, in the other hand, the plus icon is rendered.
+
+The `filter()` method return a new array with the results encountered this is the reason we apply the `length` property, to know if there is any result.
+
+Card:
+
+```javascript
+const renderIcon = (id) => {
+	const isInCart =
+		context.cartProducts.filter(
+			(product) => product.id === id
+		).length > 0;
+
+	if (isInCart) {
+		return (
+			<div className='absolute top-0 right-0 flex justify-center items-center bg-black w-6 h-6 rounded-full m-2 p-1'>
+				<CheckIcon className='size-6 text-white'></CheckIcon>
+			</div>
+		);
+	} else {
+		return (
+			<div
+				className='absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1'
+				onClick={(event) =>
+					addProductsToCart(event, data)
+				}
+			>
+				<PlusIcon className='size-6 text-black'></PlusIcon>
+			</div>
+		);
+	}
+};
+```
+
 <br>
 <br>
 

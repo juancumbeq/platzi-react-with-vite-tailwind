@@ -16,8 +16,6 @@ function CheckoutSideMenu() {
 		cartProducts,
 	} = useContext(ShoppingCartContext);
 
-	console.log('CART: ', cartProducts);
-
 	return (
 		<aside
 			className={`${
@@ -34,7 +32,7 @@ function CheckoutSideMenu() {
 				></XCircleIcon>
 			</div>
 
-			<div className='px-6'>
+			<div className='px-6 overflow-y-scroll'>
 				{cartProducts.map((product) => (
 					<OrderCard
 						key={product.id}

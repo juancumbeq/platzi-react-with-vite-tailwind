@@ -1,12 +1,13 @@
 import { OrderCard } from '../OrderCard';
 import { totalPrice } from '../../Utils';
+import { Link } from 'react-router-dom';
 
 // STYLES
 import './styles.css';
 import { XCircleIcon } from '@heroicons/react/24/outline';
 
 // CONTEXT
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { ShoppingCartContext } from '../../Context';
 
 function CheckoutSideMenu() {
@@ -80,12 +81,17 @@ function CheckoutSideMenu() {
 						${totalPrice(cartProducts)}
 					</span>
 				</p>
-				<button
-					className='bg-black py-3 text-white w-full rounded-lg'
-					onClick={() => handleCheckout()}
-				>
-					Checkout
-				</button>
+				<Link to='/my-orders/last'>
+					<button
+						className='bg-black py-3 text-white w-full rounded-lg'
+						onClick={() => {
+							handleCheckout();
+							closeCheckoutSideMenu();
+						}}
+					>
+						Checkout
+					</button>
+				</Link>
 			</div>
 		</aside>
 	);

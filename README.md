@@ -1376,6 +1376,145 @@ const handleCheckout = () => {
 
 ## [CART PRODUCT CHECKOUT]()
 
+Now we have the react state `order` available to store several shopping carts, but is necessary to show the last order in another page to review the details, to do that the `Checkout` button must directionate the user to the url: `/my-order/last`.
+
+The checkout side menu component is making use of the `Link` component to make available the redirectioning.
+
+CheckoutSideMenu:
+
+```javascript
+<Link to='/my-orders/last'>
+	<button
+		className='bg-black py-3 text-white w-full rounded-lg'
+		onClick={() => {
+			handleCheckout();
+			closeCheckoutSideMenu();
+		}}
+	>
+		Checkout
+	</button>
+</Link>
+```
+
+The `MyOrder` component access to the order array and extracts the last element, the last order, access the element but specifically the products property which is another array. This array contains the `cartProducts` information, so we can iterate over that rendering the `OrderCard` component.
+
+MyOrder:
+
+```javascript
+// COMPONENTS
+import { Layout } from '../../Components/Layout';
+import { OrderCard } from '../../Components/OrderCard';
+
+// CONTEXT
+import { useContext } from 'react';
+import { ShoppingCartContext } from '../../Context';
+
+function MyOrder() {
+	const { order } = useContext(
+		ShoppingCartContext
+	);
+
+	return (
+		<Layout>
+			<div className=''>MyOrder</div>
+			<div className='flex flex-col w-80'>
+				{order
+					?.slice(-1)[0]
+					.products.map((product) => (
+						<OrderCard
+							key={product.id}
+							id={product.id}
+							title={product.title}
+							imageURL={product.image}
+							price={product.price}
+						/>
+					))}
+			</div>
+		</Layout>
+	);
+}
+
+export default MyOrder;
+```
+
+### `order?.slice(-1)[0].products.map()`
+
+In the following line of code:
+
+```jsx
+{
+	order
+		?.slice(-1)[0]
+		.products.map((product) => (
+			<OrderCard
+				key={product.id}
+				id={product.id}
+				title={product.title}
+				imageURL={product.image}
+				price={product.price}
+			/>
+		));
+}
+```
+
+You're chaining several operations to display the products from the latest order in the shopping cart. Below is an explanation of the potential issues or pitfalls in this line:
+
+#### 1. **Usage of the Optional Chaining Operator (`?.`)**
+
+The optional chaining operator `?.` is used to prevent errors if `order` is `null` or `undefined`. If `order` is null, everything after the optional chaining stops executing and returns `undefined`, avoiding any crashes in the app when `order` is not defined.
+
+**Potential issue**: If `order` is `null` or `undefined`, the block won't render anything since there is no array to process. This may lead to the component not displaying anything when there are no orders available.
+
+#### 2. **`slice(-1)`**
+
+The method `slice(-1)` returns a new array that contains only the last element of `order`. Since `slice` always returns an array, `[0]` is used after it to access the first (and only) element of that new array, which is the latest order.
+
+**Potential issue**:
+
+- If `order` is an empty array (`[]`), `slice(-1)` will return another empty array, and when you try to access `[0]`, you'll get `undefined`. This could lead to errors when trying to access `.products` on `undefined`.
+
+#### 3. **Accessing `.products`**
+
+In the next line, you assume that the value returned by `slice(-1)[0]` (the latest order) has a `products` property, which is an array of products.
+
+**Potential issue**:
+
+- If `order.slice(-1)[0]` ends up being `undefined` (for example, if `order` is an empty array), accessing `.products` will throw an error because you're trying to access a property on `undefined`. This would break the application.
+
+To avoid this issue, you could use optional chaining here as well:
+
+```jsx
+order?.slice(-1)[0]?.products.map(...)
+```
+
+This ensures that you only try to access `.products` if there is a valid last order and you're not trying to access a property on `undefined`.
+
+#### 4. **`map((product) => ...)`**
+
+If everything works correctly up to this point, `products.map` will iterate over each product in the last order and generate an `OrderCard` component for each one.
+
+**Potential issue**:
+
+- If `products` is not an array (for example, if it's `undefined` or doesn't exist), `map` will throw an error because you can't iterate over a non-array value.
+
+To fix this, you can ensure that `products` is always at least an empty array when there are no products, so that `map` doesn't fail:
+
+```jsx
+{
+	order
+		?.slice(-1)[0]
+		?.products?.map((product) => (
+			<OrderCard
+				key={product.id}
+				id={product.id}
+				title={product.title}
+				imageURL={product.image}
+				price={product.price}
+			/>
+		));
+}
+```
+
 <br>
 <br>
 

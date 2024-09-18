@@ -116,7 +116,7 @@ function Navbar() {
 				</li>
 				<li className='flex'>
 					<ShoppingBagIcon className='size-6 text-black'></ShoppingBagIcon>{' '}
-					{context.count}
+					{context.cartProducts.length}
 				</li>
 			</ul>
 		</nav>

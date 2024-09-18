@@ -1331,6 +1331,46 @@ CheckoutSideMenu:
 
 # [FLOW FOR CREATING A NEW ORDER]()
 
+Once we got all the products selected we can proceed with the checkout, in our application this means to add the entire cart to a orders list. To do that there must be another react state in the context component, so we can manipulate that state from other points in the application.
+
+Context:
+
+```javascript
+// Shopping Cart - Orders
+const [order, setOrder] = useState([]);
+```
+
+In the checkout side menu component there is a button which will execute a function to handle the order addition.
+
+CheckoutSideMenu:
+
+```javascript
+<button
+	className='bg-black py-3 text-white w-full rounded-lg'
+	onClick={() => handleCheckout()}
+>
+	Checkout
+</button>
+```
+
+The function creates an object based on the currect cart details, add the current order to an array and cleans the `cartProducts`, making it available to store another set of products.
+
+```javascript
+const handleCheckout = () => {
+	// current order details
+	const orderToAdd = {
+		date: '01,02,23',
+		products: cartProducts,
+		totalProducts: cartProducts.length,
+		totalPrice: totalPrice(cartProducts),
+	};
+	// adding the current order
+	setOrder([...order, orderToAdd]);
+	// cleaning the checkout cart
+	setCartProducts([]);
+};
+```
+
 <br>
 <br>
 

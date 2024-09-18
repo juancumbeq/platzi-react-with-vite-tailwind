@@ -17,8 +17,8 @@ function CheckoutSideMenu() {
 		closeCheckoutSideMenu,
 		cartProducts,
 		setCartProducts,
-		order,
-		setOrder,
+		ordersList,
+		setOrdersList,
 	} = useContext(ShoppingCartContext);
 
 	// DELETE CART PRODUCTS
@@ -39,7 +39,7 @@ function CheckoutSideMenu() {
 			totalPrice: totalPrice(cartProducts),
 		};
 		// adding the current order
-		setOrder([...order, orderToAdd]);
+		setOrdersList([...ordersList, orderToAdd]);
 		// cleaning the checkout cart
 		setCartProducts([]);
 	};

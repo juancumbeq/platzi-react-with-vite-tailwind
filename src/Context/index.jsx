@@ -39,7 +39,9 @@ function ShoppingCartProvider({ children }) {
 		useState([]);
 
 	// Shopping Cart - Orders
-	const [order, setOrder] = useState([]);
+	const [ordersList, setOrdersList] = useState(
+		[]
+	);
 
 	// RETURN STATEMENT USING CONTEXT PROVIDER
 	return (
@@ -57,8 +59,8 @@ function ShoppingCartProvider({ children }) {
 				openCheckoutSideMenu,
 				closeCheckoutSideMenu,
 				isCheckoutSideMenuOpen,
-				order,
-				setOrder,
+				ordersList,
+				setOrdersList,
 			}}
 		>
 			{children}

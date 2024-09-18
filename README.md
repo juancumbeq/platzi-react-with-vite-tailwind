@@ -1520,6 +1520,127 @@ To fix this, you can ensure that `products` is always at least an empty array wh
 
 ## [MYORDERS PAGE: LIST OF ORDERS]()
 
+The My Orders page is going to wrap all of the orders. We are iterating over the `ordersList` rendering a clickable `OrdersCard` component, each order will directionate the user to a `MyOrder` page will the specific order selected.
+
+MyOrders:
+
+```javascript
+import { Layout } from '../../Components/Layout';
+import { OrdersCard } from '../../Components/OrdersCard';
+import { Link } from 'react-router-dom';
+
+import { React, useContext } from 'react';
+import { ShoppingCartContext } from '../../Context';
+
+function MyOrders() {
+	const { ordersList } = useContext(
+		ShoppingCartContext
+	);
+
+	return (
+		<Layout>
+			<div className='flex items-center justify-center relative w-80'>
+				<h1>MyOrders</h1>
+			</div>
+			{ordersList?.map((order, index) => (
+				<Link
+					key={index}
+					to={`/my-orders/${order.id}`}
+				>
+					<OrdersCard
+						className='cursor-pointer'
+						date={order.date}
+						totalPrice={order.totalPrice}
+						totalProducts={order.totalProducts}
+					/>
+				</Link>
+			))}
+		</Layout>
+	);
+}
+
+export default MyOrders;
+```
+
+This component will be rendered at every iteration of `ordersList`.
+
+OrdersCard:
+
+```jsx
+import { XMarkIcon } from '@heroicons/react/24/outline';
+
+const OrdersCard = (props) => {
+	const { date, totalPrice, totalProducts } =
+		props;
+
+	return (
+		<div className='flex justify-between items-center mb-3 border border-black'>
+			<p>
+				<span>{date} </span>
+				<span>{totalPrice} </span>
+				<span>{totalProducts} </span>
+			</p>
+		</div>
+	);
+};
+
+export { OrdersCard };
+```
+
+In the other hand, to avoid the reloading of the entire page, and losing the `ordersList` information (there is no persistence setted up yet), the `Link` component will directionate us to the My Orders page
+
+MyOrder:
+
+```jsx
+// COMPONENTS
+import { Layout } from '../../Components/Layout';
+import { OrderCard } from '../../Components/OrderCard';
+import { Link } from 'react-router-dom';
+import { ChevronLeftIcon } from '@heroicons/react/24/solid';
+
+// CONTEXT
+import { useContext } from 'react';
+import { ShoppingCartContext } from '../../Context';
+
+function MyOrder() {
+	const { ordersList } = useContext(
+		ShoppingCartContext
+	);
+
+	return (
+		<Layout>
+			<div
+				className='flex items-center justify-center relative
+			w-80 mb-6'
+			>
+				<Link
+					to={'/my-orders'}
+					className='absolute left-0'
+				>
+					<ChevronLeftIcon className='h-6 w-6 text-black cursor-pointer' />
+				</Link>
+				<h1 className=''>MyOrder</h1>
+			</div>
+			<div className='flex flex-col w-80'>
+				{ordersList
+					?.slice(-1)[0]
+					.products.map((product) => (
+						<OrderCard
+							key={product.id}
+							id={product.id}
+							title={product.title}
+							imageURL={product.image}
+							price={product.price}
+						/>
+					))}
+			</div>
+		</Layout>
+	);
+}
+
+export default MyOrder;
+```
+
 <br>
 <br>
 

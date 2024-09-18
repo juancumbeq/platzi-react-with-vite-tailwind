@@ -1,5 +1,6 @@
 import { Layout } from '../../Components/Layout';
 import { OrdersCard } from '../../Components/OrdersCard';
+import { Link } from 'react-router-dom';
 
 import { React, useContext } from 'react';
 import { ShoppingCartContext } from '../../Context';
@@ -11,13 +12,22 @@ function MyOrders() {
 
 	return (
 		<Layout>
-			<div className=''>MyOrders</div>
-			{ordersList?.map((ordersList) => {
-				<OrdersCard
-					totalPrice={ordersList.totalPrice}
-					totalProducts={ordersList.totalProducts}
-				/>;
-			})}
+			<div className='flex items-center justify-center relative w-80'>
+				<h1>MyOrders</h1>
+			</div>
+			{ordersList?.map((order, index) => (
+				<Link
+					key={index}
+					to={`/my-orders/${order.id}`}
+				>
+					<OrdersCard
+						className='cursor-pointer'
+						date={order.date}
+						totalPrice={order.totalPrice}
+						totalProducts={order.totalProducts}
+					/>
+				</Link>
+			))}
 		</Layout>
 	);
 }

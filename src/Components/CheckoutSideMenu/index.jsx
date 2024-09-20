@@ -31,9 +31,12 @@ function CheckoutSideMenu() {
 
 	// HANDLE ORDERS CHECKOUT
 	const handleCheckout = () => {
+		// date
+		const currentDate = new Date();
+
 		// current order details
 		const orderToAdd = {
-			date: '01,02,23',
+			date: currentDate.toLocaleDateString(),
 			products: cartProducts,
 			totalProducts: cartProducts.length,
 			totalPrice: totalPrice(cartProducts),

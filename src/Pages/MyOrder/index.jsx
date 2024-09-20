@@ -13,6 +13,16 @@ function MyOrder() {
 		ShoppingCartContext
 	);
 
+	// URL INDEX
+	const currentPath = window.location.pathname;
+	let index = currentPath.substring(
+		currentPath.lastIndexOf('/') + 1
+	);
+	// Last case
+	if (index === 'last') {
+		index = ordersList?.length - 1;
+	}
+
 	return (
 		<Layout>
 			<div
@@ -28,9 +38,8 @@ function MyOrder() {
 				<h1 className=''>MyOrder</h1>
 			</div>
 			<div className='flex flex-col w-80'>
-				{ordersList
-					?.slice(-1)[0]
-					.products.map((product) => (
+				{ordersList?.[index].products.map(
+					(product) => (
 						<OrderCard
 							key={product.id}
 							id={product.id}
@@ -38,7 +47,8 @@ function MyOrder() {
 							imageURL={product.image}
 							price={product.price}
 						/>
-					))}
+					)
+				)}
 			</div>
 		</Layout>
 	);

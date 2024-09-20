@@ -1646,6 +1646,95 @@ export default MyOrder;
 
 ## [MYORDER PAGE: INDIVIDUAL ORDER]()
 
+Now we have the order list rendered at MyOrders page, the thing is that we want to click at every order and see the content, the products selected, to do that, we are redirectionated to the url `/my-order/{index}` where the index makes reference to the spot in the `orderList` array.
+
+MyOrders:
+
+```jsx
+return (
+	<Layout>
+		<div className='flex items-center justify-center relative w-80'>
+			<h1>MyOrders</h1>
+		</div>
+		{ordersList?.map((order, index) => (
+			<Link
+				key={index}
+				to={`/my-orders/${index}`}
+			>
+				<OrdersCard
+					className='cursor-pointer'
+					date={order.date}
+					totalPrice={order.totalPrice}
+					totalProducts={order.totalProducts}
+				/>
+			</Link>
+		))}
+	</Layout>
+);
+```
+
+It is necessary to specify in the App component the route.
+
+App:
+
+```jsx
+{
+	path: '/my-orders/:id',
+	element: <MyOrder />,
+},
+```
+When React renders MyOrder page access the URL to extract the `:id` sent, this id will serve us to know the `ordersList` array position. In case the id is `last` like when we click on the checkout button the index variable is assigned with the last position of the array.
+
+MyOrder:
+
+```jsx
+function MyOrder() {
+	const { ordersList } = useContext(
+		ShoppingCartContext
+	);
+
+	// URL INDEX
+	const currentPath = window.location.pathname;
+	let index = currentPath.substring(
+		currentPath.lastIndexOf('/') + 1
+	);
+	// Last case
+	if (index === 'last') {
+		index = ordersList?.length - 1;
+	}
+
+	return (
+		<Layout>
+			<div
+				className='flex items-center justify-center relative
+			w-80 mb-6'
+			>
+				<Link
+					to={'/my-orders'}
+					className='absolute left-0'
+				>
+					<ChevronLeftIcon className='h-6 w-6 text-black cursor-pointer' />
+				</Link>
+				<h1 className=''>MyOrder</h1>
+			</div>
+			<div className='flex flex-col w-80'>
+				{ordersList?.[index].products.map(
+					(product) => (
+						<OrderCard
+							key={product.id}
+							id={product.id}
+							title={product.title}
+							imageURL={product.image}
+							price={product.price}
+						/>
+					)
+				)}
+			</div>
+		</Layout>
+	);
+}
+```
+
 <br>
 <br>
 

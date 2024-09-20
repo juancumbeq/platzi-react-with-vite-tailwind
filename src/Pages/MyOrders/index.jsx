@@ -18,7 +18,7 @@ function MyOrders() {
 			{ordersList?.map((order, index) => (
 				<Link
 					key={index}
-					to={`/my-orders/${order.id}`}
+					to={`/my-orders/${index}`}
 				>
 					<OrdersCard
 						className='cursor-pointer'

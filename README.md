@@ -1797,6 +1797,69 @@ export { OrdersCard };
 
 # [PRODUCT SEARCH]()
 
+Once we got the app runing we need to refactor the api request, it means relocate the request in the context component instead of the Home page. At the same time another global state is created to store the word written in the search input.
+
+Context:
+
+```jsx
+// API Products
+const [apiItems, setApiItems] = useState(null);
+
+useEffect(() => {
+	fetch(urlApi)
+		.then((response) => response.json())
+		.then((data) => setApiItems(data));
+}, []);
+
+// Search products by title
+const [searchByTitle, setSearchByTitle] =
+	useState(null);
+```
+
+In the Home page we apply some changes like creating the search input and setting the `onChange()` event which will update the global state.
+
+Home:
+
+```jsx
+function Home() {
+	const {
+		apiItems,
+		searchByTitle,
+		setSearchByTitle,
+	} = useContext(ShoppingCartContext);
+
+	console.log(searchByTitle);
+
+	return (
+		<Layout>
+			<div className='flex items-center justify-center relative w-80 mb-4'>
+				<h1 className='font-medium text-xl'>
+					All Products
+				</h1>
+			</div>
+
+			<div className='flex flex-col'>
+				<input
+					type='text'
+					placeholder='Search a product'
+					className='text-center rounded-lg border border-black w-full p-3 mb-4 focus:outline-none'
+					onChange={(event) =>
+						setSearchByTitle(event.target.value)
+					}
+				/>
+				<div className='grid grid-cols-4 gap-6 w-full max-w-screen-lg'>
+					{apiItems?.map((item) => (
+						<Card key={item.id} data={item} />
+					))}
+				</div>
+			</div>
+
+			<ProductDetail />
+		</Layout>
+	);
+}
+```
+
 <br>
 <br>
 

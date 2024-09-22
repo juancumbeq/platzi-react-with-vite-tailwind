@@ -1,4 +1,9 @@
-import { createContext, useState } from 'react';
+import {
+	createContext,
+	useState,
+	useEffect,
+} from 'react';
+import { urlApi } from '../Pages/Home/url';
 
 // CONTEXT CREATION
 const ShoppingCartContext = createContext();
@@ -43,6 +48,19 @@ function ShoppingCartProvider({ children }) {
 		[]
 	);
 
+	// API GET Products
+	const [apiItems, setApiItems] = useState(null);
+
+	useEffect(() => {
+		fetch(urlApi)
+			.then((response) => response.json())
+			.then((data) => setApiItems(data));
+	}, []);
+
+	// Search products by title
+	const [searchByTitle, setSearchByTitle] =
+		useState(null);
+
 	// RETURN STATEMENT USING CONTEXT PROVIDER
 	return (
 		<ShoppingCartContext.Provider
@@ -61,6 +79,10 @@ function ShoppingCartProvider({ children }) {
 				isCheckoutSideMenuOpen,
 				ordersList,
 				setOrdersList,
+				apiItems,
+				setApiItems,
+				searchByTitle,
+				setSearchByTitle,
 			}}
 		>
 			{children}

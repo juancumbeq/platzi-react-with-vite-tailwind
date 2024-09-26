@@ -1,10 +1,12 @@
 import { useContext } from 'react';
 
+// COMPONENTS
 import { Layout } from '../../Components/Layout';
 import { Card } from '../../Components/Card';
-import { urlApi } from './url';
 import { ProductDetail } from '../../Components/ProductDetail';
+import { InformationCircleIcon } from '@heroicons/react/24/outline';
 
+// CONTEXT
 import { ShoppingCartContext } from '../../Context';
 
 function Home() {
@@ -12,9 +14,46 @@ function Home() {
 		apiItems,
 		searchByTitle,
 		setSearchByTitle,
+		filteredItems,
 	} = useContext(ShoppingCartContext);
 
-	console.log(searchByTitle);
+	// Products view render
+	const renderView = () => {
+		if (searchByTitle?.length > 0) {
+			if (filteredItems?.length > 0) {
+				return filteredItems?.map((item) => (
+					<Card key={item.id} data={item} />
+				));
+			} else {
+				return (
+					<div className='flex flex-col items-center justify-center col-span-4 mt-6'>
+						<InformationCircleIcon className='h-6 w-6 mb-2' />
+						<p>No products found</p>
+					</div>
+				);
+			}
+		} else {
+			return apiItems?.map((item) => (
+				<Card key={item.id} data={item} />
+			));
+		}
+	};
+
+	// SIMPLIFIED CODE
+	// const renderViewProducts = () => {
+	// 	const itemsToRender =
+	// 		searchByTitle?.length > 0
+	// 			? filteredItems
+	// 			: apiItems;
+
+	// 	if (itemsToRender?.length > 0) {
+	// 		return itemsToRender?.map((item) => (
+	// 			<Card key={item.id} data={item} />
+	// 		));
+	// 	} else {
+	// 		return <p> No results Found</p>;
+	// 	}
+	// };
 
 	return (
 		<Layout>
@@ -24,7 +63,7 @@ function Home() {
 				</h1>
 			</div>
 
-			<div className='flex flex-col'>
+			<div className='flex flex-col w-full max-w-screen-lg'>
 				<input
 					type='text'
 					placeholder='Search a product'
@@ -34,9 +73,7 @@ function Home() {
 					}
 				/>
 				<div className='grid grid-cols-4 gap-6 w-full max-w-screen-lg'>
-					{apiItems?.map((item) => (
-						<Card key={item.id} data={item} />
-					))}
+					{renderView()}
 				</div>
 			</div>
 

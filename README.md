@@ -1865,6 +1865,121 @@ function Home() {
 
 ## [FILTERING TITLES WITH JAVASCRIPT]()
 
+To filter products using the words written in the input tag it is necessary to execute a function which returns another array with the coincidences. This function is `filterItemsByTitle()`.
+
+However the `useEffect()` hook is necessary to be used because `filterItemsByTitle()` has to be executed everytime the `apiItems` and `searchByTitle` dependecies change.
+
+The resulting array is stored in `filteredItems()`.
+
+Context:
+
+```jsx
+// Filtered products - search results
+const [filteredItems, setFilteredItems] =
+	useState(null);
+
+// Filtering process
+const filterItemsByTitle = (
+	apiItems,
+	searchByTitle
+) => {
+	return apiItems?.filter((item) =>
+		item.title
+			.toLowerCase()
+			.includes(searchByTitle.toLowerCase())
+	);
+};
+
+useEffect(() => {
+	if (searchByTitle) {
+		setFilteredItems(
+			filterItemsByTitle(apiItems, searchByTitle)
+		);
+	}
+}, [apiItems, searchByTitle]);
+```
+
+In the Home page we render the products array but it can be the array returned by the api or the filtered items array. We apply logic to render one or another based on the arrays length.
+
+Home:
+
+```jsx
+function Home() {
+	const {
+		apiItems,
+		searchByTitle,
+		setSearchByTitle,
+		filteredItems,
+	} = useContext(ShoppingCartContext);
+
+	// Products view render
+	const renderView = () => {
+		if (searchByTitle?.length > 0) {
+			if (filteredItems?.length > 0) {
+				return filteredItems?.map((item) => (
+					<Card key={item.id} data={item} />
+				));
+			} else {
+				return (
+					<div className='flex flex-col items-center justify-center col-span-4 mt-6'>
+						<InformationCircleIcon className='h-6 w-6 mb-2' />
+						<p>No products found</p>
+					</div>
+				);
+			}
+		} else {
+			return apiItems?.map((item) => (
+				<Card key={item.id} data={item} />
+			));
+		}
+	};
+
+	// SIMPLIFIED CODE
+	// const renderViewProducts = () => {
+	// 	const itemsToRender =
+	// 		searchByTitle?.length > 0
+	// 			? filteredItems
+	// 			: apiItems;
+
+	// 	if (itemsToRender?.length > 0) {
+	// 		return itemsToRender?.map((item) => (
+	// 			<Card key={item.id} data={item} />
+	// 		));
+	// 	} else {
+	// 		return <p> No results Found</p>;
+	// 	}
+	// };
+
+	return (
+		<Layout>
+			<div className='flex items-center justify-center relative w-80 mb-4'>
+				<h1 className='font-medium text-xl'>
+					All Products
+				</h1>
+			</div>
+
+			<div className='flex flex-col w-full max-w-screen-lg'>
+				<input
+					type='text'
+					placeholder='Search a product'
+					className='text-center rounded-lg border border-black w-full p-3 mb-4 focus:outline-none'
+					onChange={(event) =>
+						setSearchByTitle(event.target.value)
+					}
+				/>
+				<div className='grid grid-cols-4 gap-6 w-full max-w-screen-lg'>
+					{renderView()}
+				</div>
+			</div>
+
+			<ProductDetail />
+		</Layout>
+	);
+}
+
+export default Home;
+```
+
 <br>
 <br>
 

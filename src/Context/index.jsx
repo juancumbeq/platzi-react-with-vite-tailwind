@@ -61,6 +61,33 @@ function ShoppingCartProvider({ children }) {
 	const [searchByTitle, setSearchByTitle] =
 		useState(null);
 
+	// Filtered products - search results
+	const [filteredItems, setFilteredItems] =
+		useState(null);
+
+	// Filtering process
+	const filterItemsByTitle = (
+		apiItems,
+		searchByTitle
+	) => {
+		return apiItems?.filter((item) =>
+			item.title
+				.toLowerCase()
+				.includes(searchByTitle.toLowerCase())
+		);
+	};
+
+	useEffect(() => {
+		if (searchByTitle) {
+			setFilteredItems(
+				filterItemsByTitle(
+					apiItems,
+					searchByTitle
+				)
+			);
+		}
+	}, [apiItems, searchByTitle]);
+
 	// RETURN STATEMENT USING CONTEXT PROVIDER
 	return (
 		<ShoppingCartContext.Provider
@@ -83,6 +110,7 @@ function ShoppingCartProvider({ children }) {
 				setApiItems,
 				searchByTitle,
 				setSearchByTitle,
+				filteredItems,
 			}}
 		>
 			{children}

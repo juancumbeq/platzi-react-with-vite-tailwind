@@ -58,7 +58,8 @@ const AppRoutes = () => {
 function App() {
 	return (
 		<ShoppingCartProvider>
-			<BrowserRouter base='/platzi-react-with-vite-tailwind'>
+			{/* <BrowserRouter basename='/platzi-react-with-vite-tailwind'> */}
+			<BrowserRouter>
 				<AppRoutes />
 				<Navbar />
 				<CheckoutSideMenu />

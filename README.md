@@ -8,65 +8,81 @@
 
 # DEMO
 
+[https://juancumbeq.github.io/platzi-react-with-vite-tailwind/](https://juancumbeq.github.io/platzi-react-with-vite-tailwind/)
+
+Appears as _NOT FOUND_ but it is a url bug, click on a navbar link to see the application working properly.
+
 <br>
 
 # LEARNINGS
 
+ - How to create modals
+ - Context management
+ - React routes management
+ - Global states management
+
 <br>
 
 # INDEX
+
 - [ROUTING AND BASE STRUCTURE](#routing-and-base-structure)
-	- [REACT INSTALLATION WITH VITE AND TAILWINDCSS](#react-installation-with-vite-and-tailwindcss)
-		- [Vite installation](#vite-installation)
-		- [TailwindCSS installation](#tailwindcss-installation)
-		- [TailwindCSS init](#tailwindcss-init)
-		- [Configure TailwindCSS paths](#configure-tailwindcss-paths)
-		- [TailwindCSS directives](#tailwindcss-directives)
-		- [Run local server](#run-local-server)
 
-	- [ROUTES ANALYSIS AND COMPONENTS IN REACT](#routes-analysis-and-components-in-react)
-	- [ROUTING WITH REACT ROUTER DOM](#routing-with-react-router-dom)
-		- [Why BrowserRouter is Necessary](#why-browserrouter-is-necessary)
-		- [Can You Use AppRoutes Without BrowserRouter?](#can-you-use-approutes-without-browserrouter)
+  - [REACT INSTALLATION WITH VITE AND TAILWINDCSS](#react-installation-with-vite-and-tailwindcss)
 
-	- [NAVBAR COMPONENT](#navbar-component)
-	- [LAYOUT COMPONENT](#layout-component)
-	- [CARD COMPONENT](#card-component)
-	- [CONSUMING THE FAKESTORE API TO COLOUR CARDS](#consuming-the-fakestore-api-to-colour-cards)
+    - [Vite installation](#vite-installation)
+    - [TailwindCSS installation](#tailwindcss-installation)
+    - [TailwindCSS init](#tailwindcss-init)
+    - [Configure TailwindCSS paths](#configure-tailwindcss-paths)
+    - [TailwindCSS directives](#tailwindcss-directives)
+    - [Run local server](#run-local-server)
+
+  - [ROUTES ANALYSIS AND COMPONENTS IN REACT](#routes-analysis-and-components-in-react)
+  - [ROUTING WITH REACT ROUTER DOM](#routing-with-react-router-dom)
+
+    - [Why BrowserRouter is Necessary](#why-browserrouter-is-necessary)
+    - [Can You Use AppRoutes Without BrowserRouter?](#can-you-use-approutes-without-browserrouter)
+
+  - [NAVBAR COMPONENT](#navbar-component)
+  - [LAYOUT COMPONENT](#layout-component)
+  - [CARD COMPONENT](#card-component)
+  - [CONSUMING THE FAKESTORE API TO COLOUR CARDS](#consuming-the-fakestore-api-to-colour-cards)
 
 - [GLOBAL STATE HANDLING WITH CONTEXT](#global-state-handling-with-context)
-	- [APPLICATION GLOBAL CONTEXT](#application-global-context)
-	- [PRODUCT COUNTER IN THE SHOPPING CART](#product-counter-in-the-shopping-cart)
-	- [PRODUCT DETAILS](#product-details)
-	- [CHALLENGE: HEROICONS WITH TAILWINDCSS](#challenge-heroicons-with-tailwindcss)
-	- [LAYING OUT PRODUCTDETAIL](#laying-out-productdetail)
-	- [SHOWING PRODUCTS IN PRODUCTDETAIL](#showing-products-in-productdetail)
+
+  - [APPLICATION GLOBAL CONTEXT](#application-global-context)
+  - [PRODUCT COUNTER IN THE SHOPPING CART](#product-counter-in-the-shopping-cart)
+  - [PRODUCT DETAILS](#product-details)
+  - [CHALLENGE: HEROICONS WITH TAILWINDCSS](#challenge-heroicons-with-tailwindcss)
+  - [LAYING OUT PRODUCTDETAIL](#laying-out-productdetail)
+  - [SHOWING PRODUCTS IN PRODUCTDETAIL](#showing-products-in-productdetail)
 
 - [SHOPPING CART](#shopping-cart)
-	- [ADDING PRODUCTS TO THE CART](#adding-products-to-the-cart)
-	- [CART SIDEMENU](#cart-sidemenu)
-		- [`stopPropagation()`](#stoppropagation)
-		- [Components management in the App component](#components-management-in-the-app-component)
-	- [ORDERCARD COMPONENT](#ordercard-component)
-	- [AVOIDING DUPLICATE PRODUCTS IN THE CART](#avoiding-duplicate-products-in-the-cart)
-	- [REMOVE PRODUCTS FROM THE CART](#remove-products-from-the-cart)
-	- [TOTAL SUM OF PRODUCTS IN THE CART](#total-sum-of-products-in-the-cart)
+
+  - [ADDING PRODUCTS TO THE CART](#adding-products-to-the-cart)
+  - [CART SIDEMENU](#cart-sidemenu)
+    - [`stopPropagation()`](#stoppropagation)
+    - [Components management in the App component](#components-management-in-the-app-component)
+  - [ORDERCARD COMPONENT](#ordercard-component)
+  - [AVOIDING DUPLICATE PRODUCTS IN THE CART](#avoiding-duplicate-products-in-the-cart)
+  - [REMOVE PRODUCTS FROM THE CART](#remove-products-from-the-cart)
+  - [TOTAL SUM OF PRODUCTS IN THE CART](#total-sum-of-products-in-the-cart)
 
 - [CHECKOUT AND PURCHASE ORDERS](#checkout-and-purchase-orders)
 - [FLOW FOR CREATING A NEW ORDER](#flow-for-creating-a-new-order)
-	- [CART PRODUCT CHECKOUT](#cart-product-checkout)
-		- [`order?.slice(-1)[0].products.map()`](#orderslice-10productsmap)
-	- [MYORDERS PAGE: LIST OF ORDERS](#myorders-page-list-of-orders)
-	- [MYORDER PAGE: INDIVIDUAL ORDER](#myorder-page-individual-order)
-	- [CHALLENGE: PURCHASE ORDERS WITH TAILWINDCSS](#challenge-purchase-orders-with-tailwindcss)
+
+  - [CART PRODUCT CHECKOUT](#cart-product-checkout)
+    - [`order?.slice(-1)[0].products.map()`](#orderslice-10productsmap)
+  - [MYORDERS PAGE: LIST OF ORDERS](#myorders-page-list-of-orders)
+  - [MYORDER PAGE: INDIVIDUAL ORDER](#myorder-page-individual-order)
+  - [CHALLENGE: PURCHASE ORDERS WITH TAILWINDCSS](#challenge-purchase-orders-with-tailwindcss)
 
 - [FILTERING PRODUCTS FROM FRONTEND](#filtering-products-from-frontend)
 - [PRODUCT SEARCH](#product-search)
-	- [FILTERING TITLES WITH JAVASCRIPT](#filtering-titles-with-javascript)
-	- [FILTERING CATEGORIES WITH JAVASCRIPT](#filtering-categories-with-javascript)
+
+  - [FILTERING TITLES WITH JAVASCRIPT](#filtering-titles-with-javascript)
+  - [FILTERING CATEGORIES WITH JAVASCRIPT](#filtering-categories-with-javascript)
 
 - [AUTHOR](#author)
-
 
 <br>
 <br>
@@ -2241,6 +2257,14 @@ const renderView = () => {
 	}
 };
 ```
+
+<br>
+<br>
+<br>
+
+# BUGS TO FIX
+
+- The application base url is not working properly, it is taking: [https://juancumbeq.github.io/platzi-react-with-vite-tailwind/](https://juancumbeq.github.io/platzi-react-with-vite-tailwind/) the entire url as a internal route of the application.
 
 <br>
 <br>

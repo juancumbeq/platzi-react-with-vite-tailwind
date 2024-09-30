@@ -6,15 +6,11 @@
 
 <br>
 
+# DEMO
+
+<br>
+
 # LEARNINGS
-
-<br>
-
-# WIREFRAMES
-
-<br>
-
-# PROTOTYPE
 
 <br>
 
@@ -85,6 +81,8 @@ Each page has its own folder where the index.js and the css code is stored.
 
 ## [ROUTING WITH REACT ROUTER DOM]()
 
+App:
+
 ```javascript
 import {
 	useRoutes,
@@ -130,9 +128,9 @@ function App() {
 export default App;
 ```
 
-As we can there are two components above, the first one define the routes, this means that based on the url path it is going to throw an element or another, if the url path is not defined the default element thrown is `<NotFound>`.
+As we can see, there are two components above. The first one defines the routes, meaning that based on the URL path, it will render one element or another. If the URL path is not defined, the default element rendered is `<NotFound>`.
 
-The second component is the App component, which is making use of the `<BrowserRouter>` . The BrowserRouter component is essential for enabling routing. It provides the context and history objects that the routing hooks (useRoutes, useNavigate, etc.) rely on to function correctly.
+The second component is the App component, which makes use of the `<BrowserRouter>`. The BrowserRouter component is essential for enabling routing. It provides the context and history objects that the routing hooks (useRoutes, useNavigate, etc.) rely on to function correctly.
 
 ### Why BrowserRouter is Necessary
 
@@ -146,6 +144,8 @@ No, you cannot use AppRoutes alone without wrapping it in BrowserRouter. If you 
 <br>
 
 ## [NAVBAR COMPONENT]()
+
+Navbar:
 
 ```javascript
 import { NavLink } from 'react-router-dom';
@@ -267,7 +267,7 @@ function Navbar() {
 export { Navbar };
 ```
 
-The navbar component is created using the Navling component.NavLink is a special type of link in react-router-dom that is used to create navigation links with special behavior when the link is active. It automatically applies an active class (or a custom class) when the link's target route matches the current URL.
+The navbar component is created using the `Navlink` component `NavLink` is a special type of link in `react-router-dom` that is used to create navigation links with special behavior when the link is active. It automatically applies an active class (or a custom class) when the link's target route matches the current URL.
 
 The `className` function uses a conditional (ternary) operator to decide which class to apply based on the state `isActive`:
 
@@ -281,6 +281,10 @@ More about Navlink: [https://reactrouter.com/en/main/components/nav-link](https:
 
 ## [LAYOUT COMPONENT]()
 
+The Layout component acts as a wrapper for every other page. In this way, we can apply the same styles to the entire web page.
+
+Layout:
+
 ```javascript
 function Layout({ children }) {
 	return (
@@ -293,12 +297,14 @@ function Layout({ children }) {
 export { Layout };
 ```
 
-The Layout component is like a wrapper to every other page, by this way we can apply all the same styles to the whole web page.
-
 <br>
 <br>
 
 ## [CARD COMPONENT]()
+
+This component is going to be the window where the different products are displayed.
+
+Card:
 
 ```javascript
 const Card = () => {
@@ -332,14 +338,18 @@ const Card = () => {
 export { Card };
 ```
 
-This component is going to be the window where the different products are shown.
-
 <br>
 <br>
 
 ## [CONSUMING THE FAKESTORE API TO COLOUR CARDS]()
 
-This project is built using fake data as product information, however it is necessary to consume an api to get that information.
+This project is built using fake data for product information; however, it is necessary to consume an API to retrieve that information.
+
+The Home component retrieves the data and sets the local state with the array of objects received. The return statement executes the `map()` method to iterate over the array, rendering a Card component for each object found in the array.
+
+The Card component receives the information as a prop, allowing access to all the specific details.
+
+Home:
 
 ```javascript
 function Home() {
@@ -368,10 +378,6 @@ function Home() {
 export default Home;
 ```
 
-The home component retrieves the data and set the local state with the objects array received. The return statement executes a `map()` method to iterate over the array rendering a card component on every object found in the array.
-
-The card component receives the information as a prop object, having access to all the specific information.
-
 <br>
 <br>
 <br>
@@ -380,7 +386,7 @@ The card component receives the information as a prop object, having access to a
 
 ## [APPLICATION GLOBAL CONTEXT]()
 
-Instead of using local states it is better to use global states, by this way there is no possibility of prop drilling, so any component can access the context without needing props.
+Instead of using local state, it is better to use global state. This way, there is no possibility of prop drilling, and any component can access the context without needing props.
 
 Context:
 
@@ -404,7 +410,7 @@ function ShoppingCartProvider({ children }) {
 export { ShoppingCartContext, ShoppingCartProvider };
 ```
 
-As we can see it is necessary to create a context, after that and making use of another React component the children components passed as props are wrapped inside the context provider. In this way all of the children can access the value data.
+As we can see, it is necessary to create a context. After that, by using another React component, the child components passed as props are wrapped inside the context provider. In this way, all the children can access the value data.
 
 App:
 
@@ -425,16 +431,16 @@ function App() {
 }
 ```
 
-In the app component is necessary to wrap all of the other components to make them be able to consume the value data.
+In the App component, it is necessary to wrap all the other components to enable them to consume the value data.
 
 <br>
 <br>
 
 ## [PRODUCT COUNTER IN THE SHOPPING CART]()
 
-In every ecommerce there is a shopping cart counter that shows the amount of selected products. To create this feature is necessary to make use of the context in both component, the card and the navbar component.
+In every e-commerce site, there is a shopping cart counter that shows the number of selected products. To create this feature, it is necessary to use the context in both the Card and Navbar components.
 
-Context
+Context:
 
 ```javascript
 import { createContext, useState } from 'react';
@@ -464,7 +470,7 @@ export {
 };
 ```
 
-Card
+Card:
 
 ```javascript
 import { useContext } from 'react';
@@ -492,7 +498,7 @@ const Card = ({ data }) => {
 export { Card };
 ```
 
-Navbar
+Navbar:
 
 ```javascript
 <li>Cart {context.count}</li>
@@ -520,9 +526,9 @@ You can access `setCount` as if it were a property of `context`, because this is
 
 ## [PRODUCT DETAILS]()
 
-The following component represents the modal which is opened everytime we click over a product to review their details.
+The following component represents the modal, which opens every time we click on a product to review its details.
 
-Product Detail
+Product Detail:
 
 ```jsx
 import './styles.css';
@@ -547,7 +553,7 @@ export { ProductDetail };
 
 The product details component is inserted in the home page.
 
-Home
+Home:
 
 ```jsx
 <Layout>
@@ -576,6 +582,8 @@ npm install @heroicons/react
 
 To add an icon inside a component, this is an example:
 
+Product Detail:
+
 ```javascript
 import './styles.css';
 import { XCircleIcon } from '@heroicons/react/24/outline';
@@ -601,7 +609,7 @@ export { ProductDetail };
 
 ## [LAYING OUT PRODUCTDETAIL]()
 
-Inside the context component there is another react state to control whether the modal is opened or not, also there are other two functions to set the modal status.
+Inside the context component, there is another React state to control whether the modal is open or not. Additionally, there are two other functions to set the modal status.
 
 Context:
 
@@ -646,7 +654,7 @@ export {
 };
 ```
 
-On the card component the `onClick` event is set to every card rendered, setting the react state to `true`.
+In the Card component, the `onClick` event is set for every rendered card, updating the React state to `true`.
 
 Card:
 
@@ -657,7 +665,7 @@ Card:
 ></div>
 ```
 
-On the product details component we are using template literals lo set classes dinamicaly, so based on the `isProductDetailOpen` status we can set the component visible or hidden
+In the Product Details component, we are using template literals to set classes dynamically. Based on the `isProductDetailOpen` status, we can determine whether the component is visible or hidden.
 
 Product details:
 
@@ -674,7 +682,7 @@ Product details:
 
 ## [SHOWING PRODUCTS IN PRODUCTDETAIL]()
 
-Once the product detail component is rendered it is important to show the product information, in order to do that, inside the context file another global state is created and exported inside the value object.
+Once the Product Details component is rendered, it is important to show the product information. To achieve this, another global state is created inside the context file and exported within the value object.
 
 Context:
 
@@ -684,7 +692,7 @@ const [productToShow, setProductToShow] =
 	useState({});
 ```
 
-Inside the card component there are some changes, every time a card is clicked the product data related to that specific card must be sent to the product detail component to be rendered as well, this is why in the `onClick()` event there is another function.
+Inside the Card component, there are some changes. Every time a card is clicked, the product data related to that specific card must be sent to the Product Details component to be rendered as well. This is why there is another function in the `onClick()` event.
 
 Card:
 
@@ -696,7 +704,7 @@ const showProduct = (productDetail) => {
 };
 ```
 
-As the global state is updated with the produdct data using the card component function, now that data is available to be consumed by the product detail component.
+As the global state is updated with the product data using the Card component function, that data is now available to be consumed by the Product Details component.
 
 Product Detail:
 
@@ -729,7 +737,7 @@ Product Detail:
 
 ## [ADDING PRODUCTS TO THE CART]()
 
-Before showing the products added to the user it is necessary to create the global state to store them. Inside the context component we create a React state, initialized with an empty array.
+Before displaying the products added by the user, it is necessary to create a global state to store them. Inside the context component, we create a React state initialized with an empty array.
 
 Context:
 
@@ -740,7 +748,7 @@ const [cartProducts, setCartProducts] = useState(
 );
 ```
 
-In the card component we consume the context to access the array and the modifier method. Also we create another function to be executen when the `onClick()` event occurs. As we can see the function modifies the counter and expands the `cartProducts` state array with the `productData`.
+In the Card component, we consume the context to access the array and the modifier method. We also create another function to be executed when the `onClick()` event occurs. This function modifies the counter and expands the `cartProducts` state array with the `productData`.
 
 Card:
 
@@ -768,7 +776,7 @@ const addProductsToCart = (productData) => {
 
 ## [CART SIDEMENU]()
 
-This new component is going to wrap all of the selected items by clicking the `+` icon. Is similar to the product details component.
+This new component is going to wrap all the selected items by clicking the `+` icon. It is similar to the Product Details component.
 
 CheckoutSideMenu:
 
@@ -811,7 +819,7 @@ function CheckoutSideMenu() {
 export { CheckoutSideMenu };
 ```
 
-In the context component are defined all the methods to open and close the checkout side menu modal.
+In the context component, all the methods to open and close the checkout side menu modal are defined.
 
 Context:
 
@@ -827,7 +835,7 @@ const closeCheckoutSideMenu = () =>
 	setIsCheckoutSideMenuOpen(false);
 ```
 
-The card component is the more important one because is in charge to manage the events. The main div of the card component is handling the `onClick()` event by showing the product details modal, but the `+` icon is handling the checkout side menu modal. So, in order to separate the events we had to use the `stopPropagation()` method in the bubble phase. To know more check the info below.
+The Card component is the most important one because it is responsible for managing the events. The main div of the Card component handles the `onClick()` event by showing the product details modal, while the `+` icon manages the checkout side menu modal. To separate the events, we used the `stopPropagation()` method during the bubble phase. To learn more, check the information below.
 
 Card:
 
@@ -860,7 +868,7 @@ const addProductsToCart = (
 </div>;
 ```
 
-The checkout side menu component is inserted in the app component in order to be available in different pages, to know more about how the components are managed check the info below.
+The Checkout Side Menu component is included in the App component to be available on different pages. To learn more about how the components are managed, check the information below.
 
 App:
 
@@ -1158,13 +1166,13 @@ export { CheckoutSideMenu };
 
 ## [AVOIDING DUPLICATE PRODUCTS IN THE CART]()
 
-Until this point we can add products to the shopping cart without any limitation, but we have to set the application to avoid duplicate products in the cart.
+At this point, we can add products to the shopping cart without any limitations, but we need to set the application to avoid duplicate products in the cart.
 
-Also after adding a product the `+` icon must change to a check icon, indicating the product is already added.
+Additionally, after adding a product, the `+` icon must change to a check icon, indicating that the product has already been added.
 
-In the card component there is another function handling this situation, if the product is already at the `cartProducts` array the check icon is rendered, in the other hand, the plus icon is rendered.
+In the Card component, there is another function handling this situation. If the product is already in the `cartProducts` array, the check icon is rendered; otherwise, the plus icon is displayed.
 
-The `filter()` method return a new array with the results encountered this is the reason we apply the `length` property, to know if there is any result.
+The `filter()` method returns a new array with the results found, which is why we apply the `length` property to determine if there are any results.
 
 Card:
 
@@ -1201,9 +1209,9 @@ const renderIcon = (id) => {
 
 ## [REMOVE PRODUCTS FROM THE CART]()
 
-Now we can add products to our cart, but it is necessary to remove them any time. In order to do that we have to set the `onClick()` event, deleting the selected product from the `cartProducts` array.
+Now we can add products to our cart, but it is necessary to remove them at any time. To do that, we need to set the `onClick()` event to delete the selected product from the `cartProducts` array.
 
-In the checkout side menu we handle this event, passing the `handleDelete` function as a prop to the order card component.
+In the Checkout Side Menu, we handle this event by passing the `handleDelete` function as a prop to the Order Card component.
 
 CheckoutSideMenu:
 
@@ -1270,7 +1278,7 @@ function CheckoutSideMenu() {
 export { CheckoutSideMenu };
 ```
 
-In the order card we receive various props, one of the is the function `handleDelete`. The parameter is necessary to know which product have to be deleted.
+In the Order Card, we receive various props, one of which is the function `handleDelete`. The parameter is necessary to know which product needs to be deleted.
 
 OrderCard:
 
@@ -1286,7 +1294,7 @@ OrderCard:
 
 ## [TOTAL SUM OF PRODUCTS IN THE CART]()
 
-In every checkout there is the total sum of the selected products, in order to do that we use another function called `totalPrice()` built in a .js file.
+In every checkout, there is a total sum of the selected products. To achieve this, we use another function called `totalPrice()`, which is built in a .js file.
 
 Utils:
 
@@ -1308,7 +1316,7 @@ const totalPrice = (products) => {
 export { totalPrice };
 ```
 
-In the checkout side menu component the function `totalPrice()` is imported, and then used below, using the `cartProducts` as an argument.
+In the Checkout Side Menu component, the function `totalPrice()` is imported and then used below, with the `cartProducts` array as an argument.
 
 CheckoutSideMenu:
 
@@ -1331,7 +1339,7 @@ CheckoutSideMenu:
 
 # [FLOW FOR CREATING A NEW ORDER]()
 
-Once we got all the products selected we can proceed with the checkout, in our application this means to add the entire cart to a orders list. To do that there must be another react state in the context component, so we can manipulate that state from other points in the application.
+Once we have all the selected products, we can proceed with the checkout. In our application, this means adding the entire cart to an orders list. To do this, there must be another React state in the context component so that we can manipulate that state from other parts of the application.
 
 Context:
 
@@ -1340,7 +1348,7 @@ Context:
 const [order, setOrder] = useState([]);
 ```
 
-In the checkout side menu component there is a button which will execute a function to handle the order addition.
+In the Checkout Side Menu component, there is a button that will execute a function to handle the order addition.
 
 CheckoutSideMenu:
 
@@ -1353,7 +1361,7 @@ CheckoutSideMenu:
 </button>
 ```
 
-The function creates an object based on the currect cart details, add the current order to an array and cleans the `cartProducts`, making it available to store another set of products.
+The function creates an object based on the current cart details, adds the current order to an array, and clears the `cartProducts`, making it available to store another set of products.
 
 ```javascript
 const handleCheckout = () => {
@@ -1376,9 +1384,9 @@ const handleCheckout = () => {
 
 ## [CART PRODUCT CHECKOUT]()
 
-Now we have the react state `order` available to store several shopping carts, but is necessary to show the last order in another page to review the details, to do that the `Checkout` button must directionate the user to the url: `/my-order/last`.
+Now we have the React state `order` available to store several shopping carts, but it is necessary to show the last order on another page to review the details. To do this, the `Checkout` button must direct the user to the URL: `/my-order/last`.
 
-The checkout side menu component is making use of the `Link` component to make available the redirectioning.
+The Checkout Side Menu component uses the `Link` component to enable the redirection.
 
 CheckoutSideMenu:
 
@@ -1396,7 +1404,7 @@ CheckoutSideMenu:
 </Link>
 ```
 
-The `MyOrder` component access to the order array and extracts the last element, the last order, access the element but specifically the products property which is another array. This array contains the `cartProducts` information, so we can iterate over that rendering the `OrderCard` component.
+The `MyOrder` component accesses the order array and extracts the last element, which is the last order. It then accesses the products property of that element, which is another array. This array contains the `cartProducts` information, allowing us to iterate over it and render the `OrderCard` component.
 
 MyOrder:
 
@@ -1457,7 +1465,7 @@ In the following line of code:
 }
 ```
 
-You're chaining several operations to display the products from the latest order in the shopping cart. Below is an explanation of the potential issues or pitfalls in this line:
+You're chaining several operations to display the products from the latest order in the shopping cart. Below there is an explanation of the potential issues or pitfalls in this line:
 
 #### 1. **Usage of the Optional Chaining Operator (`?.`)**
 
@@ -1520,7 +1528,7 @@ To fix this, you can ensure that `products` is always at least an empty array wh
 
 ## [MYORDERS PAGE: LIST OF ORDERS]()
 
-The My Orders page is going to wrap all of the orders. We are iterating over the `ordersList` rendering a clickable `OrdersCard` component, each order will directionate the user to a `MyOrder` page will the specific order selected.
+The My Orders page is going to wrap all the orders. We are iterating over the `ordersList`, rendering a clickable `OrderCard` component. Each order will direct the user to a `MyOrder` page with the specific order selected.
 
 MyOrders:
 
@@ -1587,7 +1595,7 @@ const OrdersCard = (props) => {
 export { OrdersCard };
 ```
 
-In the other hand, to avoid the reloading of the entire page, and losing the `ordersList` information (there is no persistence setted up yet), the `Link` component will directionate us to the My Orders page
+On the other hand, to avoid reloading the entire page and losing the `ordersList` information (as there is no persistence set up yet), the `Link` component will direct us to the My Orders page.
 
 MyOrder:
 
@@ -1646,7 +1654,7 @@ export default MyOrder;
 
 ## [MYORDER PAGE: INDIVIDUAL ORDER]()
 
-Now we have the order list rendered at MyOrders page, the thing is that we want to click at every order and see the content, the products selected, to do that, we are redirectionated to the url `/my-order/{index}` where the index makes reference to the spot in the `orderList` array.
+Now we have the order list rendered on the My Orders page. The goal is to click on each order and see its content, specifically the selected products. To achieve this, we are redirected to the URL `/my-order/{index}`, where the index refers to the position in the `ordersList` array.
 
 MyOrders:
 
@@ -1684,7 +1692,7 @@ App:
 },
 ```
 
-When React renders MyOrder page access the URL to extract the `:id` sent, this id will serve us to know the `ordersList` array position. In case the id is `last` like when we click on the checkout button the index variable is assigned with the last position of the array.
+When React renders the MyOrder page, it accesses the URL to extract the `:id` sent. This id will help us determine the position in the `ordersList` array. If the `id` is `last`, as when we click the checkout button, the index variable is assigned the last position of the array.
 
 MyOrder:
 
@@ -1797,7 +1805,7 @@ export { OrdersCard };
 
 # [PRODUCT SEARCH]()
 
-Once we got the app runing we need to refactor the api request, it means relocate the request in the context component instead of the Home page. At the same time another global state is created to store the word written in the search input.
+Once we have the app running, we need to refactor the API request, which means relocating the request to the context component instead of the Home page. At the same time, another global state is created to store the word written in the search input.
 
 Context:
 
@@ -1816,7 +1824,7 @@ const [searchByTitle, setSearchByTitle] =
 	useState(null);
 ```
 
-In the Home page we apply some changes like creating the search input and setting the `onChange()` event which will update the global state.
+In the Home page, we apply some changes, such as creating the search input and setting the `onChange()` event, which will update the global state.
 
 Home:
 
@@ -1865,11 +1873,11 @@ function Home() {
 
 ## [FILTERING TITLES WITH JAVASCRIPT]()
 
-To filter products using the words written in the input tag it is necessary to execute a function which returns another array with the coincidences. This function is `filterItemsByTitle()`.
+To filter products using the words written in the input tag, it is necessary to execute a function that returns another array with the matches. This function is `filterItemsByTitle()`.
 
-However the `useEffect()` hook is necessary to be used because `filterItemsByTitle()` has to be executed everytime the `apiItems` and `searchByTitle` dependecies change.
+However, the `useEffect()` hook needs to be used because `filterItemsByTitle()` has to be executed every time the `apiItems` and `searchByTitle` dependencies change.
 
-The resulting array is stored in `filteredItems()`.
+The resulting array is stored in `filteredItems`.
 
 Context:
 
@@ -1899,7 +1907,7 @@ useEffect(() => {
 }, [apiItems, searchByTitle]);
 ```
 
-In the Home page we render the products array but it can be the array returned by the api or the filtered items array. We apply logic to render one or another based on the arrays length.
+In the Home page, we render the products array, which can either be the array returned by the API or the filtered items array. We apply logic to render one or the other based on the length of the arrays.
 
 Home:
 
@@ -1985,7 +1993,7 @@ export default Home;
 
 ## [FILTERING CATEGORIES WITH JAVASCRIPT]()
 
-The filtering products by categories is mainly executed in the Context component, the App component just defines the routes and the element which will be rendered (Home page).
+Filtering products by categories is mainly executed in the Context component; the App component only defines the routes and the elements that will be rendered (Home page).
 
 App:
 
@@ -2024,7 +2032,7 @@ const AppRoutes = () => {
 };
 ```
 
-On the other hand, the Navbar component for every Link tag sets a category in the global state `searchByCategory`, this value will be used to filter products.
+On the other hand, the Navbar component sets a category in the global state `searchByCategory` for every Link tag; this value will be used to filter products.
 
 Navbar:
 
@@ -2076,11 +2084,11 @@ Navbar:
 </li>
 ```
 
-The context component is where all of the filtering process is made, after setting the states and the filter functions, we create another function called `filterBy()` which will asign the `apiItems` array to `filteredResults`, after that the filter by category is executed and the result is assigned to filteredResults.
+The Context component is where all the filtering processes are made. After setting the states and the filter functions, we create another function called `filterBy()`, which will assign the `apiItems` array to `filteredResults`. After that, the filter by category is executed, and the result is assigned to `filteredResults`.
 
 The next filtering by title process is based on the previous results.
 
-In case both searches are false the `apiItems` array is returned.
+In case both searches are false, the `apiItems` array is returned.
 
 Context:
 
@@ -2155,7 +2163,7 @@ useEffect(() => {
 }, [apiItems, searchByTitle, searchByCategory]);
 ```
 
-From the previous header the Home page has changed, now the `renderView()`just executes the render, independently if this is the `apiItems` array or the filtered one.
+From the previous header, the Home page has changed. Now, the `renderView()` function only executes the render, regardless of whether it is the apiItems array or the filtered one.
 
 Home:
 
@@ -2186,18 +2194,6 @@ const renderView = () => {
 <br>
 <br>
 
-# NEXT STEPS
-
-# [REACT DEPLOY ON NETLIFY]()
-
-<br>
-<br>
-<br>
-
 # AUTHOR
 
 This project was developed by _Juan Cumbe_. If you have any questions or suggestions about the project, feel free to contact me via [e-mail](mailto:hello@juancumbe.com) or my [Linkedin](https://www.linkedin.com/in/juancumbeq/) profile.
-
-```
-
-```

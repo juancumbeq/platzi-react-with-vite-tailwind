@@ -19,6 +19,8 @@ function CheckoutSideMenu() {
 		setCartProducts,
 		ordersList,
 		setOrdersList,
+		setSearchByTitle,
+		setSearchByCategory,
 	} = useContext(ShoppingCartContext);
 
 	// DELETE CART PRODUCTS
@@ -45,6 +47,9 @@ function CheckoutSideMenu() {
 		setOrdersList([...ordersList, orderToAdd]);
 		// cleaning the checkout cart
 		setCartProducts([]);
+
+		setSearchByTitle(null);
+		setSearchByCategory(null);
 	};
 
 	return (

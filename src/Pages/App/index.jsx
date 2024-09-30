@@ -24,6 +24,12 @@ import './App.css';
 const AppRoutes = () => {
 	let routes = useRoutes([
 		{ path: '/', element: <Home /> },
+		{ path: '/clothes', element: <Home /> },
+		{ path: '/electronics', element: <Home /> },
+		{ path: '/jewelery', element: <Home /> },
+		{ path: '/toys', element: <Home /> },
+		{ path: '/others', element: <Home /> },
+		{ path: '/', element: <Home /> },
 		{
 			path: '/my-account',
 			element: <MyAccount />,

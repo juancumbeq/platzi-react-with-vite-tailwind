@@ -19,6 +19,9 @@ function Navbar() {
 				<li>
 					<NavLink
 						to='/'
+						onClick={() =>
+							context.setSearchByCategory(null)
+						}
 						className={({ isActive }) =>
 							isActive ? activeStyle : undefined
 						}
@@ -30,6 +33,11 @@ function Navbar() {
 				<li>
 					<NavLink
 						to='/clothes'
+						onClick={() =>
+							context.setSearchByCategory(
+								"men's clothing"
+							)
+						}
 						className={({ isActive }) =>
 							isActive ? activeStyle : undefined
 						}
@@ -40,6 +48,11 @@ function Navbar() {
 				<li>
 					<NavLink
 						to='/electronics'
+						onClick={() =>
+							context.setSearchByCategory(
+								'electronics'
+							)
+						}
 						className={({ isActive }) =>
 							isActive ? activeStyle : undefined
 						}
@@ -49,17 +62,25 @@ function Navbar() {
 				</li>
 				<li>
 					<NavLink
-						to='/furnitures'
+						to='/jewelery'
+						onClick={() =>
+							context.setSearchByCategory(
+								'jewelery'
+							)
+						}
 						className={({ isActive }) =>
 							isActive ? activeStyle : undefined
 						}
 					>
-						Furnitures
+						Jewelery
 					</NavLink>
 				</li>
 				<li>
 					<NavLink
 						to='/toys'
+						onClick={() =>
+							context.setSearchByCategory('toys')
+						}
 						className={({ isActive }) =>
 							isActive ? activeStyle : undefined
 						}
@@ -70,6 +91,11 @@ function Navbar() {
 				<li>
 					<NavLink
 						to='/others'
+						onClick={() =>
+							context.setSearchByCategory(
+								'others'
+							)
+						}
 						className={({ isActive }) =>
 							isActive ? activeStyle : undefined
 						}
@@ -81,11 +107,15 @@ function Navbar() {
 
 			<ul className='flex items-center gap-3'>
 				<li className='text-black/60'>
-					test@platzi.com
+					test@shopi.com
 				</li>
 				<li>
 					<NavLink
 						to='/my-orders'
+						onClick={() => {
+							context.setSearchByCategory(null);
+							context.setSearchByTitle(null);
+						}}
 						className={({ isActive }) =>
 							isActive ? activeStyle : undefined
 						}
@@ -97,6 +127,10 @@ function Navbar() {
 				<li>
 					<NavLink
 						to='/my-account'
+						onClick={() => {
+							context.setSearchByCategory(null);
+							context.setSearchByTitle(null);
+						}}
 						className={({ isActive }) =>
 							isActive ? activeStyle : undefined
 						}
@@ -107,6 +141,10 @@ function Navbar() {
 				<li>
 					<NavLink
 						to='/sign-in'
+						onClick={() => {
+							context.setSearchByCategory(null);
+							context.setSearchByTitle(null);
+						}}
 						className={({ isActive }) =>
 							isActive ? activeStyle : undefined
 						}

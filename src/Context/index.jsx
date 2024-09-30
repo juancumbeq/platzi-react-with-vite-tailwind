@@ -11,7 +11,6 @@ const ShoppingCartContext = createContext();
 // COMPONENT PROVIDER
 function ShoppingCartProvider({ children }) {
 	// Global states
-
 	// Shopping Cart - Increment quantity
 	const [count, setCount] = useState(0);
 
@@ -57,15 +56,17 @@ function ShoppingCartProvider({ children }) {
 			.then((data) => setApiItems(data));
 	}, []);
 
-	// Search products by title
+	// Search products by title / category
 	const [searchByTitle, setSearchByTitle] =
+		useState(null);
+	const [searchByCategory, setSearchByCategory] =
 		useState(null);
 
 	// Filtered products - search results
 	const [filteredItems, setFilteredItems] =
 		useState(null);
 
-	// Filtering process
+	// Filtering process by title
 	const filterItemsByTitle = (
 		apiItems,
 		searchByTitle
@@ -77,16 +78,59 @@ function ShoppingCartProvider({ children }) {
 		);
 	};
 
-	useEffect(() => {
-		if (searchByTitle) {
-			setFilteredItems(
-				filterItemsByTitle(
-					apiItems,
-					searchByTitle
-				)
+	// Filtering process by category
+	const filterItemsByCategory = (
+		apiItems,
+		searchByCategory
+	) => {
+		return apiItems?.filter((item) =>
+			item.category
+				.toLowerCase()
+				.includes(searchByCategory.toLowerCase())
+		);
+	};
+
+	// Filter process
+	const filterBy = (
+		apiItems,
+		searchByTitle,
+		searchByCategory
+	) => {
+		let filteredResults = apiItems;
+
+		if (searchByCategory) {
+			filteredResults = filterItemsByCategory(
+				apiItems,
+				searchByCategory
 			);
 		}
-	}, [apiItems, searchByTitle]);
+
+		if (searchByTitle) {
+			filteredResults = filterItemsByTitle(
+				filteredResults,
+				searchByTitle
+			);
+		}
+
+		return filteredResults;
+	};
+
+	useEffect(() => {
+		setFilteredItems(
+			filterBy(
+				apiItems,
+				searchByTitle,
+				searchByCategory
+			)
+		);
+
+	}, [apiItems, searchByTitle, searchByCategory]);
+
+	console.log('searchByTitle: ', searchByTitle);
+	console.log(
+		'searchByCategory: ',
+		searchByCategory
+	);
 
 	// RETURN STATEMENT USING CONTEXT PROVIDER
 	return (
@@ -111,6 +155,8 @@ function ShoppingCartProvider({ children }) {
 				searchByTitle,
 				setSearchByTitle,
 				filteredItems,
+				searchByCategory,
+				setSearchByCategory,
 			}}
 		>
 			{children}

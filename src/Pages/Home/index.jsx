@@ -11,49 +11,25 @@ import { ShoppingCartContext } from '../../Context';
 
 function Home() {
 	const {
-		apiItems,
-		searchByTitle,
 		setSearchByTitle,
-		filteredItems,
+		filteredItems: itemsToRender,
 	} = useContext(ShoppingCartContext);
 
 	// Products view render
 	const renderView = () => {
-		if (searchByTitle?.length > 0) {
-			if (filteredItems?.length > 0) {
-				return filteredItems?.map((item) => (
-					<Card key={item.id} data={item} />
-				));
-			} else {
-				return (
-					<div className='flex flex-col items-center justify-center col-span-4 mt-6'>
-						<InformationCircleIcon className='h-6 w-6 mb-2' />
-						<p>No products found</p>
-					</div>
-				);
-			}
-		} else {
-			return apiItems?.map((item) => (
+		if (itemsToRender?.length > 0) {
+			return itemsToRender?.map((item) => (
 				<Card key={item.id} data={item} />
 			));
+		} else {
+			return (
+				<div className='flex flex-col items-center justify-center col-span-4 mt-6'>
+					<InformationCircleIcon className='h-6 w-6 mb-2' />
+					<p>No products found</p>
+				</div>
+			);
 		}
 	};
-
-	// SIMPLIFIED CODE
-	// const renderViewProducts = () => {
-	// 	const itemsToRender =
-	// 		searchByTitle?.length > 0
-	// 			? filteredItems
-	// 			: apiItems;
-
-	// 	if (itemsToRender?.length > 0) {
-	// 		return itemsToRender?.map((item) => (
-	// 			<Card key={item.id} data={item} />
-	// 		));
-	// 	} else {
-	// 		return <p> No results Found</p>;
-	// 	}
-	// };
 
 	return (
 		<Layout>

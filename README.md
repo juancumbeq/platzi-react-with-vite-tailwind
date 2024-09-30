@@ -1985,10 +1985,202 @@ export default Home;
 
 ## [FILTERING CATEGORIES WITH JAVASCRIPT]()
 
-<br>
-<br>
+The filtering products by categories is mainly executed in the Context component, the App component just defines the routes and the element which will be rendered (Home page).
 
-## [FIXING APPLICATION BUGS]()
+App:
+
+```jsx
+const AppRoutes = () => {
+	let routes = useRoutes([
+		{ path: '/', element: <Home /> },
+		{ path: '/clothes', element: <Home /> },
+		{ path: '/electronics', element: <Home /> },
+		{ path: '/jewelery', element: <Home /> },
+		{ path: '/toys', element: <Home /> },
+		{ path: '/others', element: <Home /> },
+		{ path: '/', element: <Home /> },
+		{
+			path: '/my-account',
+			element: <MyAccount />,
+		},
+		{ path: '/my-order', element: <MyOrder /> },
+		{
+			path: '/my-orders',
+			element: <MyOrders />,
+		},
+		{
+			path: '/my-orders/last',
+			element: <MyOrder />,
+		},
+		{
+			path: '/my-orders/:id',
+			element: <MyOrder />,
+		},
+		{ path: '/*', element: <NotFound /> },
+		{ path: '/signin', element: <SignIn /> },
+	]);
+
+	return routes;
+};
+```
+
+On the other hand, the Navbar component for every Link tag sets a category in the global state `searchByCategory`, this value will be used to filter products.
+
+Navbar:
+
+```jsx
+
+<li>
+	<NavLink
+		to='/'
+		onClick={() =>
+			context.setSearchByCategory(null)
+		}
+		className={({ isActive }) =>
+			isActive ? activeStyle : undefined
+		}
+	>
+		All
+	</NavLink>
+</li>
+
+<li>
+	<NavLink
+		to='/clothes'
+		onClick={() =>
+			context.setSearchByCategory(
+				"men\'s clothing"
+			)
+		}
+		className={({ isActive }) =>
+			isActive ? activeStyle : undefined
+		}
+	>
+		Clothes
+	</NavLink>
+</li>
+<li>
+	<NavLink
+		to='/electronics'
+		onClick={() =>
+			context.setSearchByCategory(
+				'electronics'
+			)
+		}
+		className={({ isActive }) =>
+			isActive ? activeStyle : undefined
+		}
+	>
+		Electronics
+	</NavLink>
+</li>
+```
+
+The context component is where all of the filtering process is made, after setting the states and the filter functions, we create another function called `filterBy()` which will asign the `apiItems` array to `filteredResults`, after that the filter by category is executed and the result is assigned to filteredResults.
+
+The next filtering by title process is based on the previous results.
+
+In case both searches are false the `apiItems` array is returned.
+
+Context:
+
+```jsx
+// Search products by title / category
+const [searchByTitle, setSearchByTitle] =
+	useState(null);
+const [searchByCategory, setSearchByCategory] =
+	useState(null);
+
+// Filtered products - search results
+const [filteredItems, setFilteredItems] =
+	useState(null);
+
+// Filtering process by title
+const filterItemsByTitle = (
+	apiItems,
+	searchByTitle
+) => {
+	return apiItems?.filter((item) =>
+		item.title
+			.toLowerCase()
+			.includes(searchByTitle.toLowerCase())
+	);
+};
+
+// Filtering process by category
+const filterItemsByCategory = (
+	apiItems,
+	searchByCategory
+) => {
+	return apiItems?.filter((item) =>
+		item.category
+			.toLowerCase()
+			.includes(searchByCategory.toLowerCase())
+	);
+};
+
+// Filter process
+const filterBy = (
+	apiItems,
+	searchByTitle,
+	searchByCategory
+) => {
+	let filteredResults = apiItems;
+
+	if (searchByCategory) {
+		filteredResults = filterItemsByCategory(
+			apiItems,
+			searchByCategory
+		);
+	}
+
+	if (searchByTitle) {
+		filteredResults = filterItemsByTitle(
+			filteredResults,
+			searchByTitle
+		);
+	}
+
+	return filteredResults;
+};
+
+useEffect(() => {
+	setFilteredItems(
+		filterBy(
+			apiItems,
+			searchByTitle,
+			searchByCategory
+		)
+	);
+}, [apiItems, searchByTitle, searchByCategory]);
+```
+
+From the previous header the Home page has changed, now the `renderView()`just executes the render, independently if this is the `apiItems` array or the filtered one.
+
+Home:
+
+```jsx
+const {
+	setSearchByTitle,
+	filteredItems: itemsToRender,
+} = useContext(ShoppingCartContext);
+
+// Products view render
+const renderView = () => {
+	if (itemsToRender?.length > 0) {
+		return itemsToRender?.map((item) => (
+			<Card key={item.id} data={item} />
+		));
+	} else {
+		return (
+			<div className='flex flex-col items-center justify-center col-span-4 mt-6'>
+				<InformationCircleIcon className='h-6 w-6 mb-2' />
+				<p>No products found</p>
+			</div>
+		);
+	}
+};
+```
 
 <br>
 <br>

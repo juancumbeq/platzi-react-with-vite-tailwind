@@ -6,7 +6,7 @@
 
 <br>
 
-# COURSE PROJECT
+# COURSE PROJECT
 
 Shopi is an e-commerce application developed with React.js, Vite.js, and TailwindCSS. It allows users to explore products, add them to a shopping cart, and place orders. Navigation between application pages, such as home, user account, and orders, is managed with React Router DOM, while the global cart is handled using Context API, allowing access to selected products from any component.
 

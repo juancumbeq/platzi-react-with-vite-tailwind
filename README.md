@@ -30,8 +30,6 @@ Users can search for products by title, filter by categories, and review their o
 
 [https://juancumbeq.github.io/platzi-react-with-vite-tailwind/](https://juancumbeq.github.io/platzi-react-with-vite-tailwind/)
 
-Appears as _NOT FOUND_ but it is a url bug, click on a navbar link to see the application working properly.
-
 <br>
 <br>
 

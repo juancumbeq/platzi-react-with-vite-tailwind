@@ -6,6 +6,26 @@
 
 <br>
 
+# COURSE PROJECT
+
+Shopi is an e-commerce application developed with React.js, Vite.js, and TailwindCSS. It allows users to explore products, add them to a shopping cart, and place orders. Navigation between application pages, such as home, user account, and orders, is managed with React Router DOM, while the global cart is handled using Context API, allowing access to selected products from any component.
+
+Users can search for products by title, filter by categories, and review their order history. The shopping cart enables adding, removing products, and viewing the total in real-time.
+
+<br>
+
+# LEARNINGS
+
+    -	Creating modals in React.
+    -	Managing routes with React Router DOM.
+    -	Handling global states using Context API.
+    -	Consuming APIs to display dynamic products.
+    -	Designing responsive interfaces with TailwindCSS.
+    -	Implementing logic to avoid duplicates in the shopping cart.
+    -	Applying best practices in frontend development.
+
+<br>
+
 # DEMO
 
 [https://juancumbeq.github.io/platzi-react-with-vite-tailwind/](https://juancumbeq.github.io/platzi-react-with-vite-tailwind/)
@@ -13,14 +33,6 @@
 Appears as _NOT FOUND_ but it is a url bug, click on a navbar link to see the application working properly.
 
 <br>
-
-# LEARNINGS
-
- - How to create modals
- - Context management
- - React routes management
- - Global states management
-
 <br>
 
 # INDEX

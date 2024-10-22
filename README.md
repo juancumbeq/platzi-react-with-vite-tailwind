@@ -16,13 +16,13 @@ Users can search for products by title, filter by categories, and review their o
 
 # LEARNINGS
 
-    -	Creating modals in React.
-    -	Managing routes with React Router DOM.
-    -	Handling global states using Context API.
-    -	Consuming APIs to display dynamic products.
-    -	Designing responsive interfaces with TailwindCSS.
-    -	Implementing logic to avoid duplicates in the shopping cart.
-    -	Applying best practices in frontend development.
+-	Creating modals in React.
+-	Managing routes with React Router DOM.
+-	Handling global states using Context API.
+-	Consuming APIs to display dynamic products.
+-	Designing responsive interfaces with TailwindCSS.
+-	Implementing logic to avoid duplicates in the shopping cart.
+-	Applying best practices in frontend development.
 
 <br>
 
